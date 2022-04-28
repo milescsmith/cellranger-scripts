@@ -1,0 +1,12 @@
+{
+  "_template": "gh:cjolowicz/cookiecutter-hypermodern-python",
+  "author": "Miles Smith",
+  "development_status": "Development Status :: 3 - Alpha",
+  "email": "miles-smith@omrf.org",
+  "friendly_name": "cellranger_scripts",
+  "github_user": "milescsmith",
+  "license": "GPL-3.0",
+  "package_name": "cellranger_scripts",
+  "project_name": "cellranger-scripts",
+  "version": "0.1.0"
+}

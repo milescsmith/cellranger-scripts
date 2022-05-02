@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cellranger_scripts"
-version = "0.1.0"
+version = "0.2.0"
 description = "cellranger_scripts"
 authors = ["Miles Smith <miles-smith@omrf.org>"]
 license = "GPL-3.0"
@@ -23,6 +23,7 @@ rich = "^12.3.0"
 pandas = "^1.4.2"
 numpy = "^1.22.3"
 typeguard = "^2.13.3"
+colorama = "^0.4.4"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"

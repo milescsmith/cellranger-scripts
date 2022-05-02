@@ -3,14 +3,19 @@ from enum import Enum
 from pathlib import Path
 from typing import List, Optional
 from shutil import which
+from rich import print as rprint
+import inspect
 
 import numpy as np
 import pandas as pd
 import typer
+import click
 from typeguard import typechecked
 
 from . import __version__, console
-
+from .slurm.header import create_slurm_header
+from .utils import resolve
+# from . import typer_funcs
 
 def version_callback(value: bool):
     """Prints the version of the package."""
@@ -383,7 +388,8 @@ def multi_config(
                     multi_config=outdir.joinpath(
                         per_sample_multiconfig.index[i]
                     ).with_suffix(".csv"),
-                    **ctx,
+                    job_name = per_sample_multiconfig.index[i],
+                    **parse_args(ctx.args),
                 )
     else:
         multiconfig_str: str = create_multi_sheet(
@@ -408,7 +414,7 @@ def multi_job(
         help="Path to the multi config csv file",
     ),
     sample_name: Optional[str] = typer.Option(
-        None,
+        "other_name",
         "--id",
         "-i",
         help=(
@@ -416,7 +422,7 @@ def multi_job(
             f"If not provided, the name will be extracted from the multi config csv."
         ),
     ),
-    job_manager: Optional[JobManager] = typer.Option(
+    job_manager: JobManager = typer.Option(
         JobManager.SLURM,
         "--manager",
         "-j",
@@ -467,8 +473,8 @@ def multi_job(
     # Can we just change to using shutil.which() to find this?
     cellranger_path: Optional[str] = typer.Option(
         None,
-        "--cellranger",
-        "-cr",
+        "--cellranger_path",
+        "-cp",
         help="Path to the cellranger folder.",
     ),
 ) -> None:
@@ -476,46 +482,77 @@ def multi_job(
 
     TODO: maybe just move a lot of this to a snakemake pipeline?
     """
-
+    
+    cellranger_path = resolve(cellranger_path) 
     if cellranger_path is None:
         cellranger_path = which("cellranger")
         if cellranger_path is None:
             raise FileNotFoundError(
                 "No path to the cellranger executable was provided and it does not appear to be on the PATH."
                 )
-
-    if sample_name is None:
-        sample_name = multi_config.stem
-
-    multi_cmd = (
-        f"{cellranger_path}/cellranger multi "
-        f"--id {sample_name} "
-        f"--csv {multi_config.resolve()} "
-        f"--jobinterval 2000 "
-        f"--localcores {cpus} "
-        f"--localmem {memory}"
+    
+    kwargs = {k:v.default if isinstance(v, typer.models.OptionInfo) else v for (k,v) in locals().items()}
+    kwargs['multi_config'] = multi_config
+    kwargs['cellranger_path'] = cellranger_path
+    return multi_job_internal(
+        **kwargs
     )
 
-    if job_name is None:
-        job_name = multi_config.stem
-    if log_file is None:
-        log_file = f"{multi_config.stem}.job"
+def multi_job_internal(
+    # multi_config: Path,
+    # sample_name: Optional[str] = None,
+    # job_manager: Optional[JobManager] = JobManager.SLURM,
+    # job_out: Optional[Path] = None,
+    # job_name: Optional[str] = None,
+    # log_file: Optional[str] = None,
+    # memory: int = 32,
+    # cpus: int = 8,
+    # status: List[StatusMessage] = [StatusMessage.END, StatusMessage.FAIL],
+    # email: Optional[str] = None,
+    # partition: Optional[Partition] = Partition.SERIAL,
+    # # Can we just change to using shutil.which() to find this?
+    # cellranger_path: Optional[str] = None,
+    **kwargs
+):
+    """Hack so that we can use the `multi_job()` function as both a typer cli function
+    and a callable function
+    """
+    
+    if "sample_name" not in kwargs or kwargs['sample_name'] is None:
+        kwargs['sample_name'] = kwargs['multi_config'].stem
+
+    multi_cmd = (
+        f"{kwargs['cellranger_path']}/cellranger multi "
+        f"--id {kwargs['sample_name']} "
+        f"--csv {kwargs['multi_config'].resolve()} "
+        f"--jobinterval 2000 "
+        f"--localcores {kwargs['cpus']} "
+        f"--localmem {kwargs['memory']}"
+    )
+
+    if "job_name" not in kwargs or kwargs['job_name'] is None:
+        kwargs['job_name'] = kwargs['multi_config'].stem
+
+    if "log_file" not in kwargs or kwargs['log_file'] is None:
+        kwargs['log_file'] = f"{kwargs['multi_config'].stem}.job"
 
     # Using a dictionary to store/pass values here to make
     # swapping out the job manager and associated functions easier
     # if other job managers are ever added
 
+    kwargs['status'] = ",".join([_.value for _ in kwargs['status']])
+
     header_options = {
-        "job_name": job_name,
-        "log_file": log_file,
-        "email_address": email,
-        "email_status": ",".join([_.value for _ in status]),
-        "mem": memory,
-        "cpus": cpus,
-        "partition": partition.value,
+        "job_name": kwargs['job_name'],
+        "log_file": kwargs['log_file'],
+        "email_address": kwargs['email'],
+        "email_status": kwargs['status'],
+        "mem": kwargs['memory'],
+        "cpus": kwargs['cpus'],
+        "partition": kwargs['partition'],
     }
 
-    if job_manager == JobManager.SLURM:
+    if kwargs['job_manager'] == JobManager.SLURM:
         job_header = create_slurm_header(header_options)
     else:
         job_header = ""
@@ -524,8 +561,10 @@ def multi_job(
 
     job_script = job_header + "\n" + multi_cmd
 
-    if job_out is None:
-        job_out = multi_config.stem
+    if "job_out" not in kwargs or kwargs['job_out'] is None:
+        job_out = kwargs['multi_config'].stem
+    else:
+        job_out = kwargs['job_out']
 
     output_jobscript = Path(f"{job_out}_multi.job")
     console.print(f"Writing jobscript to {output_jobscript.resolve()}")
@@ -534,38 +573,16 @@ def multi_job(
         f.writelines(job_script)
 
 
-def create_slurm_header(header_options: List[str]) -> str:
-
-    job_header = "#! /bin/bash -l\n"
-
-    if "job_name" in header_options:
-        job_header += f"#SBATCH -J {header_options['job_name']}\n"
-    if "log_file" in header_options:
-        job_header += f"#SBATCH -o {header_options['log_file']}\n"
-    if "email_status" in header_options:
-        job_header += f"#SBATCH --mail-user={header_options['email_address']}\n"
-        job_header += f"#SBATCH --mail-type={header_options['email_status']}\n"
-    if "mem" in header_options:
-        job_header += f"#SBATCH --mem={header_options['mem']}G\n"
-    else:
-        job_header += f"#SBATCH --mem=8G"
-    if "partition" in header_options:
-        job_header += f"#SBATCH --partition={header_options['partition']}\n"
-    else:
-        job_header += f"#SBATCH --partition=serial\n"
-    if "nodes" in header_options:
-        job_header += f"#SBATCH --nodes={header_options['nodes']}\n"
-    else:
-        job_header += f"#SBATCH --nodes=1\n"
-    if "cpus" in header_options:
-        job_header += f"#SBATCH --cpus-per-task={header_options['cpus']}\n"
-    else:
-        job_header += f"#SBATCH --cpus-per-task=1\n"
-
-    job_header += f"export _JAVA_OPTIONS='-Xmx64G -Xms4G -XX:+UseParallelGC -XX:ParallelGCThreads=8'\n"
-
-    return job_header
-
+def parse_args(args):
+    args_dict = dict()
+    for i, x in enumerate(args):
+        if x.startswith("--"):
+            if i+1 < len(args):
+                if not args[i+1].startswith("--"):
+                    args_dict[x.strip("--")] = args[i+1]
+                elif args[i+1].startswith("--"):
+                    args_dict[x] = True
+    return args_dict
 
 if __name__ == "__main__":
     app()  # pragma: no cover

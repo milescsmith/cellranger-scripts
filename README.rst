@@ -30,12 +30,11 @@ cellranger_scripts
 .. |Black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
    :target: https://github.com/psf/black
    :alt: Black
-
-.. |Activity| image:: (https://repobeats.axiom.co/api/embed/a212f644c6aab9c2a3b78f1ec3824662a6f635fc.svg
+.. |Activity| image:: https://repobeats.axiom.co/api/embed/a212f644c6aab9c2a3b78f1ec3824662a6f635fc.svg
    :target: https://repobeats.axiom.co
-   :alt: "Repobeats analytics image"
+   :alt: Repobeats analytics image
 
-Writing the various scripts and sample sheets for Cell Ranger and a job manager to process the sequencing data for
+Writing the various scripts and sample sheets for `Cell Ranger <https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/what-is-cell-ranger>`_ and a job manager to process the sequencing data for
 samples generated using 10X Genomics kits quickly becomes tedious; however, most of the information needed is present
 in the original sample sheet used for demultiplexing and the other config files share most of their settings.
 
@@ -62,6 +61,7 @@ Installation
 .. You can install *cellranger_scripts* via pip_ from PyPI_:
 
 You can install *cellranger_scripts* via pip_ from github_:
+
 .. code:: console
 
    $ pip install git+https://github.com/milescsmith/cellranger-scripts
@@ -72,7 +72,7 @@ Usage
 
 Currently, cellranger-scripts has two subcommands:
 
-* multi_config: generates the config csvs required by Cell Ranger multi
+* multi_config: generates the config CSVs required by Cell Ranger multi
 * multi_job: generates job files to run Cell Ranger multi on a job manager
 
 multi_config:

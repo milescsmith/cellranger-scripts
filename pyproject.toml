@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cellranger_scripts"
-version = "0.2.0"
+version = "0.3.0"
 description = "cellranger_scripts"
 authors = ["Miles Smith <miles-smith@omrf.org>"]
 license = "GPL-3.0"
@@ -50,6 +50,7 @@ Pygments = "^2.10.0"
 pyupgrade = "^2.29.1"
 furo = ">=2021.11.12"
 isort = "^5.10.1"
+bandit = "1.7.2"
 
 [tool.poetry.scripts]
 cellranger-scripts = "cellranger_scripts.__main__:app"

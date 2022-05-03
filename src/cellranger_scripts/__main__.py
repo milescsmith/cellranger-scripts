@@ -1,21 +1,19 @@
 """Command-line interface."""
 from enum import Enum
 from pathlib import Path
-from typing import List, Optional
 from shutil import which
-from rich import print as rprint
-import inspect
+from typing import List, Optional
 
-import numpy as np
 import pandas as pd
 import typer
-import click
-from typeguard import typechecked
 
 from . import __version__, console
+from .multi import create_multi_sheet
 from .slurm.header import create_slurm_header
 from .utils import resolve
+
 # from . import typer_funcs
+
 
 def version_callback(value: bool):
     """Prints the version of the package."""
@@ -27,17 +25,24 @@ def version_callback(value: bool):
 
 
 app = typer.Typer(
-    # name="cellranger_scripts",
-    # help="Generate some of the config and scripts necessary for processing single cell data with Cell Ranger",
+    name="cellranger_scripts",
+    help=(
+        "Generate some of the config and scripts necessary "
+        "for processing single cell data with Cell Ranger"
+    ),
 )
 
 
 class JobManager(str, Enum):
+    """Used to enforce job manager choices."""
+
     SLURM = "SLURM"
     NONE = None
 
 
 class Partition(str, Enum):
+    """Current list of SLURM partitions of which I am aware."""
+
     SERIAL = "serial"
     DEBUG = "debug"
     INTERACTIVE = "interactive"
@@ -46,6 +51,8 @@ class Partition(str, Enum):
 
 
 class StatusMessage(str, Enum):
+    """Possible statuses for the job manager to send an alert for."""
+
     END = "END"
     FAIL = "FAIL"
     START = "START"
@@ -63,6 +70,8 @@ class StatusMessage(str, Enum):
 
 
 class Chemistry(str, Enum):
+    """Potential kit chemistry options."""
+
     auto = "auto"
     threeprime = "threeprime"
     fiveprime = "fiveprime"
@@ -72,153 +81,6 @@ class Chemistry(str, Enum):
     SC5P_PE = "SC5P-PE"
     SC5P_R2 = "SC5P-R2"
     SC_FB = "SC-FB"
-
-
-@typechecked
-def create_library_section(
-    df: pd.DataFrame,
-    project_path: Optional[Path] = None,
-    data_subfolder: Optional[Path] = None,
-    lanes: str = "",
-    subsample_rate: Optional[int] = None,
-) -> pd.DataFrame:
-
-    # TODO: this *should* read the lane information from the samplesheet instead of asking for it
-
-    if project_path is None:
-        project_path = Path.cwd()
-
-    if data_subfolder is not None:
-        data_subfolder = project_path.joinpath(data_subfolder)
-
-    gex_libraries = df[df["Sample_Name"].str.contains("gex")]
-    if np.any(gex_libraries):
-        reformatted_gex_libs = pd.DataFrame(
-            data={
-                "fastq_id": gex_libraries["Sample_Name"],
-                "fastqs": [
-                    project_path.joinpath(_) for _ in gex_libraries["Sample_ID"]
-                ],
-                "lanes": lanes,
-                "feature_types": "gene_expression",
-                "subsample_rate": "" if subsample_rate is None else subsample_rate,
-            }
-        )
-    else:
-        reformatted_gex_libs = None
-
-    bcr_libraries = df[df["Sample_Name"].str.contains("bcr")]
-    if np.any(bcr_libraries):
-        reformatted_bcr_libs = pd.DataFrame(
-            data={
-                "fastq_id": gex_libraries["Sample_Name"],
-                "fastqs": [
-                    project_path.joinpath(_) for _ in bcr_libraries["Sample_ID"]
-                ],
-                "lanes": lanes,
-                "feature_types": "vdj-b",
-                "subsample_rate": "" if subsample_rate is None else subsample_rate,
-            }
-        )
-    else:
-        reformatted_bcr_libs = None
-
-    tcr_libraries = df[df["Sample_Name"].str.contains("tcr")]
-    if np.any(tcr_libraries):
-        reformatted_tcr_libs = pd.DataFrame(
-            data={
-                "fastq_id": gex_libraries["Sample_Name"],
-                "fastqs": [
-                    project_path.joinpath(_) for _ in tcr_libraries["Sample_ID"]
-                ],
-                "lanes": lanes,
-                "feature_types": "vdj-t",
-                "subsample_rate": "" if subsample_rate is None else subsample_rate,
-            }
-        )
-    else:
-        reformatted_tcr_libs = None
-
-    feature_libraries = df[
-        df["Sample_Name"].str.contains("feature|antibody|totalseq|citeseq", regex=True)
-    ]
-    if np.any(feature_libraries):
-        reformatted_feature_libs = pd.DataFrame(
-            data={
-                "fastq_id": feature_libraries["Sample_Name"],
-                "fastqs": [
-                    project_path.joinpath(_) for _ in feature_libraries["Sample_ID"]
-                ],
-                "lanes": lanes,
-                "feature_types": "antibody capture",
-                "subsample_rate": "" if subsample_rate is None else subsample_rate,
-            }
-        )
-    else:
-        reformatted_feature_libs = None
-
-    return pd.concat(
-        [
-            reformatted_gex_libs,
-            reformatted_bcr_libs,
-            reformatted_tcr_libs,
-            reformatted_feature_libs,
-        ]
-    )
-
-@typechecked
-def create_multi_sheet(
-    df: pd.DataFrame,
-    project_path: Optional[Path] = None,
-    data_subfolder: Optional[Path] = None,
-    gex_ref_path: Optional[Path] = None,
-    vdj_ref_path: Optional[Path] = None,
-    feature_ref_path: Optional[Path] = None,
-    expected_cells: Optional[int] = None,
-    lanes: str = "",
-    subsample_rate: Optional[int] = None,
-) -> str:
-    gex_section = "[gene-expression]\ninclude-introns,true\n"
-    if gex_ref_path:
-        gex_section += f"reference,{gex_ref_path}\n"
-
-    if expected_cells:
-        gex_section += f"expect-cells,{expected_cells}\n"
-
-    vdj_section = "[vdj]\n"
-    if vdj_ref_path:
-        vdj_section += f"reference,{vdj_ref_path}\n"
-
-    feature_section = "[feature]\n"
-    if feature_ref_path:
-        feature_section += f"reference,{feature_ref_path}\n"
-
-    library_section = (
-        create_library_section(
-            df,
-            project_path=project_path,
-            data_subfolder=data_subfolder,
-            lanes=lanes,
-            subsample_rate=subsample_rate,
-        )
-        .apply(
-            lambda x: x.to_string(header=False, index=False)
-            .replace(r" ", "")
-            .replace("\n", ","),
-            axis=1,
-        )
-        .to_list()
-    )
-
-    multi_sheet = [
-        gex_section,
-        vdj_section,
-        feature_section,
-        "[libraries]\nfastq_id,fastqs,lanes,feature_types,subsample_rate",
-        *library_section,
-    ]
-
-    return "\n".join(multi_sheet)
 
 
 @app.command(
@@ -248,8 +110,11 @@ def multi_config(
         ...,
         writable=True,
         resolve_path=True,
-        help=f"Location to which the library config CSVs should be saved. Each file will be named according to "
-        f"The 'Sample_Project' column value in the samplesheet",
+        help=(
+            "Location to which the library config CSVs should be saved."
+            "Each file will be named according to "
+            "The 'Sample_Project' column value in the samplesheet"
+        ),
     ),
     data_subfolder: Optional[Path] = typer.Option(
         None,
@@ -259,8 +124,11 @@ def multi_config(
         dir_okay=True,
         readable=True,
         resolve_path=False,
-        help=f"If the FASTQs are located in a subfolder, what is the relative path to the data?, (e.g., use if"
-        f"FASTQs are located somewhere like 'project_path/data/fastqs')",
+        help=(
+            "If the FASTQs are located in a subfolder, what is the relative "
+            "path to the data?, (e.g., use if FASTQs are located somewhere "
+            "like 'project_path/data/fastqs')"
+        ),
     ),
     gene_expression_reference: Optional[Path] = typer.Option(
         None,
@@ -306,8 +174,10 @@ def multi_config(
         True,
         "--split",
         "-p",
-        help=f"Should a separate library config be written for each sample "
-        f"(provided that the sample name is in the 'Sample_Project' field)?",
+        help=(
+            "Should a separate library config be written for each sample "
+            "(provided that the sample name is in the 'Sample_Project' field)?"
+        ),
     ),
     job_manager: Optional[JobManager] = typer.Option(
         None,
@@ -334,14 +204,16 @@ def multi_config(
         True,
         "--bypass_checks",
         "-b",
-        help="Should the path to the references be checked to see if they actually exist?",
+        help=(
+            "Should the path to the references "
+            "be checked to see if they actually exist?"
+        ),
     ),
     ctx: typer.Context = typer.Option(
         ..., help="Extra options to pass to the job script"
     ),
 ) -> None:
     """Generate library config csvs for Cell Ranger multi."""
-    
     if samplesheet.exists():
         ss = pd.read_csv(samplesheet, skiprows=8)
 
@@ -388,7 +260,7 @@ def multi_config(
                     multi_config=outdir.joinpath(
                         per_sample_multiconfig.index[i]
                     ).with_suffix(".csv"),
-                    job_name = per_sample_multiconfig.index[i],
+                    job_name=per_sample_multiconfig.index[i],
                     **parse_args(ctx.args),
                 )
     else:
@@ -418,8 +290,8 @@ def multi_job(
         "--id",
         "-i",
         help=(
-            f"Label to give sample and will be used by Cell Ranger to name the output directory. "
-            f"If not provided, the name will be extracted from the multi config csv."
+            "Label to give sample and will be used by Cell Ranger to name the output directory. "
+            "If not provided, the name will be extracted from the multi config csv."
         ),
     ),
     job_manager: JobManager = typer.Option(
@@ -478,25 +350,24 @@ def multi_job(
         help="Path to the cellranger folder.",
     ),
 ) -> None:
-    """Quickly create a job file to perform counting with 10X's Cellranger
-
-    TODO: maybe just move a lot of this to a snakemake pipeline?
-    """
-    
-    cellranger_path = resolve(cellranger_path) 
+    """Quickly create a job file to perform counting with 10X's Cellranger"""
+    # TODO: maybe just move a lot of this to a snakemake pipeline?
+    cellranger_path = resolve(cellranger_path)
     if cellranger_path is None:
         cellranger_path = which("cellranger")
         if cellranger_path is None:
             raise FileNotFoundError(
                 "No path to the cellranger executable was provided and it does not appear to be on the PATH."
-                )
-    
-    kwargs = {k:v.default if isinstance(v, typer.models.OptionInfo) else v for (k,v) in locals().items()}
-    kwargs['multi_config'] = multi_config
-    kwargs['cellranger_path'] = cellranger_path
-    return multi_job_internal(
-        **kwargs
-    )
+            )
+
+    kwargs = {
+        k: v.default if isinstance(v, typer.models.OptionInfo) else v
+        for (k, v) in locals().items()
+    }
+    kwargs["multi_config"] = multi_config
+    kwargs["cellranger_path"] = cellranger_path
+    return multi_job_internal(**kwargs)
+
 
 def multi_job_internal(
     # multi_config: Path,
@@ -512,47 +383,46 @@ def multi_job_internal(
     # partition: Optional[Partition] = Partition.SERIAL,
     # # Can we just change to using shutil.which() to find this?
     # cellranger_path: Optional[str] = None,
-    **kwargs
+    **kwargs,
 ):
     """Hack so that we can use the `multi_job()` function as both a typer cli function
     and a callable function
     """
-    
-    if "sample_name" not in kwargs or kwargs['sample_name'] is None:
-        kwargs['sample_name'] = kwargs['multi_config'].stem
+    if "sample_name" not in kwargs or kwargs["sample_name"] is None:
+        kwargs["sample_name"] = kwargs["multi_config"].stem
 
     multi_cmd = (
-        f"{kwargs['cellranger_path']}/cellranger multi "
-        f"--id {kwargs['sample_name']} "
-        f"--csv {kwargs['multi_config'].resolve()} "
-        f"--jobinterval 2000 "
-        f"--localcores {kwargs['cpus']} "
-        f"--localmem {kwargs['memory']}"
+        f"{kwargs['cellranger_path']}/cellranger multi \ \n"
+        f"\t--id {kwargs['sample_name']} \ \n"
+        f"\t--csv {kwargs['multi_config'].resolve()} \ \n"
+        f"\t--jobinterval 2000 \ \n"
+        f"\t--localcores {kwargs['cpus']} \ \n"
+        f"\t--localmem {kwargs['memory']}"
     )
 
-    if "job_name" not in kwargs or kwargs['job_name'] is None:
-        kwargs['job_name'] = kwargs['multi_config'].stem
+    if "job_name" not in kwargs or kwargs["job_name"] is None:
+        kwargs["job_name"] = kwargs["multi_config"].stem
 
-    if "log_file" not in kwargs or kwargs['log_file'] is None:
-        kwargs['log_file'] = f"{kwargs['multi_config'].stem}.job"
+    if "log_file" not in kwargs or kwargs["log_file"] is None:
+        kwargs["log_file"] = f"{kwargs['multi_config'].stem}.job"
+
+    kwargs["status"] = ",".join([_.value for _ in kwargs["status"]])
 
     # Using a dictionary to store/pass values here to make
     # swapping out the job manager and associated functions easier
     # if other job managers are ever added
 
-    kwargs['status'] = ",".join([_.value for _ in kwargs['status']])
-
     header_options = {
-        "job_name": kwargs['job_name'],
-        "log_file": kwargs['log_file'],
-        "email_address": kwargs['email'],
-        "email_status": kwargs['status'],
-        "mem": kwargs['memory'],
-        "cpus": kwargs['cpus'],
-        "partition": kwargs['partition'],
+        "job_name": kwargs["job_name"],
+        "log_file": kwargs["log_file"],
+        "email_address": kwargs["email"],
+        "email_status": kwargs["status"],
+        "mem": kwargs["memory"],
+        "cpus": kwargs["cpus"],
+        "partition": kwargs["partition"],
     }
 
-    if kwargs['job_manager'] == JobManager.SLURM:
+    if kwargs["job_manager"] == JobManager.SLURM:
         job_header = create_slurm_header(header_options)
     else:
         job_header = ""
@@ -561,10 +431,10 @@ def multi_job_internal(
 
     job_script = job_header + "\n" + multi_cmd
 
-    if "job_out" not in kwargs or kwargs['job_out'] is None:
-        job_out = kwargs['multi_config'].stem
+    if "job_out" not in kwargs or kwargs["job_out"] is None:
+        job_out = kwargs["multi_config"].stem
     else:
-        job_out = kwargs['job_out']
+        job_out = kwargs["job_out"]
 
     output_jobscript = Path(f"{job_out}_multi.job")
     console.print(f"Writing jobscript to {output_jobscript.resolve()}")
@@ -577,12 +447,13 @@ def parse_args(args):
     args_dict = dict()
     for i, x in enumerate(args):
         if x.startswith("--"):
-            if i+1 < len(args):
-                if not args[i+1].startswith("--"):
-                    args_dict[x.strip("--")] = args[i+1]
-                elif args[i+1].startswith("--"):
+            if i + 1 < len(args):
+                if not args[i + 1].startswith("--"):
+                    args_dict[x.replace("--", "")] = args[i + 1]
+                elif args[i + 1].startswith("--"):
                     args_dict[x] = True
     return args_dict
+
 
 if __name__ == "__main__":
     app()  # pragma: no cover

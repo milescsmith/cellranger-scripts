@@ -1,6 +1,7 @@
 """multi.py - functions specific to cellranger multi."""
 from pathlib import Path
 from typing import Optional
+import re
 
 import numpy as np
 import pandas as pd
@@ -56,7 +57,7 @@ def create_library_section(
                     project_path.joinpath(_) for _ in gex_libraries["Sample_ID"]
                 ],
                 "lanes": lanes,
-                "feature_types": "gene_expression",
+                "feature_types": "gene expression",
                 "subsample_rate": "" if subsample_rate is None else subsample_rate,
             }
         )
@@ -160,7 +161,6 @@ def create_multi_sheet(
         )
         .apply(
             lambda x: x.to_string(header=False, index=False)
-            .replace(r" ", "")
             .replace("\n", ","),
             axis=1,
         )
@@ -175,4 +175,4 @@ def create_multi_sheet(
         *library_section,
     ]
 
-    return "\n".join(multi_sheet)
+    return re.sub(pattern=r' {2,}', repl="", string="\n".join(multi_sheet))

@@ -10,7 +10,7 @@ import typer
 from . import __version__, console
 from .multi import create_multi_sheet
 from .slurm.header import create_slurm_header
-from .utils import resolve
+from .utils import resolve, parse_args
 
 # from . import typer_funcs
 
@@ -343,7 +343,7 @@ def multi_job(
         help="Specify the cluster partition on which to run the job",
     ),
     # Can we just change to using shutil.which() to find this?
-    cellranger_path: Optional[str] = typer.Option(
+    cellranger_path: Optional[Path] = typer.Option(
         None,
         "--cellranger_path",
         "-cp",
@@ -359,6 +359,11 @@ def multi_job(
             raise FileNotFoundError(
                 "No path to the cellranger executable was provided and it does not appear to be on the PATH."
             )
+    
+    cellranger_path = Path(cellranger_path)
+    
+    if cellranger_path.is_dir():
+        cellranger_path = cellranger_path.joinpath("cellranger")
 
     kwargs = {
         k: v.default if isinstance(v, typer.models.OptionInfo) else v
@@ -366,10 +371,10 @@ def multi_job(
     }
     kwargs["multi_config"] = multi_config
     kwargs["cellranger_path"] = cellranger_path
-    return multi_job_internal(**kwargs)
+    return _multi_job(**kwargs)
 
 
-def multi_job_internal(
+def _multi_job(
     # multi_config: Path,
     # sample_name: Optional[str] = None,
     # job_manager: Optional[JobManager] = JobManager.SLURM,
@@ -392,11 +397,11 @@ def multi_job_internal(
         kwargs["sample_name"] = kwargs["multi_config"].stem
 
     multi_cmd = (
-        f"{kwargs['cellranger_path']}/cellranger multi \ \n"
-        f"\t--id {kwargs['sample_name']} \ \n"
-        f"\t--csv {kwargs['multi_config'].resolve()} \ \n"
-        f"\t--jobinterval 2000 \ \n"
-        f"\t--localcores {kwargs['cpus']} \ \n"
+        f"{kwargs['cellranger_path']} multi \\\n"
+        f"\t--id {kwargs['sample_name']} \\\n"
+        f"\t--csv {kwargs['multi_config'].resolve()} \\\n"
+        f"\t--jobinterval 2000 \\\n"
+        f"\t--localcores {kwargs['cpus']} \\\n"
         f"\t--localmem {kwargs['memory']}"
     )
 
@@ -441,18 +446,6 @@ def multi_job_internal(
 
     with output_jobscript.open("w") as f:
         f.writelines(job_script)
-
-
-def parse_args(args):
-    args_dict = dict()
-    for i, x in enumerate(args):
-        if x.startswith("--"):
-            if i + 1 < len(args):
-                if not args[i + 1].startswith("--"):
-                    args_dict[x.replace("--", "")] = args[i + 1]
-                elif args[i + 1].startswith("--"):
-                    args_dict[x] = True
-    return args_dict
 
 
 if __name__ == "__main__":

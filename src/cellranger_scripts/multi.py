@@ -54,7 +54,7 @@ def create_library_section(
             data={
                 "fastq_id": gex_libraries["Sample_Name"],
                 "fastqs": [
-                    project_path.joinpath(_) for _ in gex_libraries["Sample_ID"]
+                    str(project_path.joinpath(_)) for _ in gex_libraries["Sample_ID"]
                 ],
                 "lanes": lanes,
                 "feature_types": "gene expression",
@@ -70,7 +70,7 @@ def create_library_section(
             data={
                 "fastq_id": gex_libraries["Sample_Name"],
                 "fastqs": [
-                    project_path.joinpath(_) for _ in bcr_libraries["Sample_ID"]
+                    str(project_path.joinpath(_)) for _ in bcr_libraries["Sample_ID"]
                 ],
                 "lanes": lanes,
                 "feature_types": "vdj-b",
@@ -86,7 +86,7 @@ def create_library_section(
             data={
                 "fastq_id": gex_libraries["Sample_Name"],
                 "fastqs": [
-                    project_path.joinpath(_) for _ in tcr_libraries["Sample_ID"]
+                    str(project_path.joinpath(_)) for _ in tcr_libraries["Sample_ID"]
                 ],
                 "lanes": lanes,
                 "feature_types": "vdj-t",
@@ -104,7 +104,7 @@ def create_library_section(
             data={
                 "fastq_id": feature_libraries["Sample_Name"],
                 "fastqs": [
-                    project_path.joinpath(_) for _ in feature_libraries["Sample_ID"]
+                    str(project_path.joinpath(_)) for _ in feature_libraries["Sample_ID"]
                 ],
                 "lanes": lanes,
                 "feature_types": "antibody capture",
@@ -160,7 +160,7 @@ def create_multi_sheet(
             subsample_rate=subsample_rate,
         )
         .apply(
-            lambda x: x.to_string(header=False, index=False)
+            lambda x: ",".join([str(_) for _ in x])
             .replace("\n", ","),
             axis=1,
         )

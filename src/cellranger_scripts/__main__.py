@@ -7,6 +7,10 @@ from typing import List, Optional
 import pandas as pd
 import typer
 
+import sys
+from pathlib import Path
+sys.path[0] = str(Path(sys.path[0]).parent)
+
 from . import __version__, console
 from .multi import create_multi_sheet
 from .slurm.header import create_slurm_header
@@ -99,7 +103,7 @@ def multi_config(
     ),
     project_path: Path = typer.Argument(
         ...,
-        exists=True,
+        exists=False,
         file_okay=False,
         dir_okay=True,
         readable=True,

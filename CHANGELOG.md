@@ -1,3 +1,9 @@
+# [0.6.0] - 2022-05-05
+
+## Fixed
+
+- path to FASTQs is no longer truncated
+
 # [0.5.0] - 2022-05-04
 
 ## Fixed
@@ -18,6 +24,7 @@
 - Fixed where extra `cellranger` was being added to the path to the cellranger executable
 - Fixed where an extra space was being added at the end of the lines for the job script in `_multi_job`
 
+[0.6.0]: https://github.com/milescsmith/cellranger-scripts/releases/tag/0.5.0...0.6.0
 [0.5.0]: https://github.com/milescsmith/cellranger-scripts/releases/tag/0.4.0...0.5.0
 [0.4.0]: https://github.com/milescsmith/cellranger-scripts/releases/tag/0.3.0...0.4.0
 [0.3.0]: https://github.com/milescsmith/cellranger-scripts/releases/tag/0.3.0

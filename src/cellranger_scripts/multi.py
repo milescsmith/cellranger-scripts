@@ -46,7 +46,7 @@ def create_library_section(
         project_path = Path.cwd()
 
     if data_subfolder is not None:
-        data_subfolder = project_path.joinpath(data_subfolder)
+        project_path = project_path.joinpath(data_subfolder)
 
     gex_libraries = df[df["Sample_Name"].str.contains("gex")]
     if np.any(gex_libraries):

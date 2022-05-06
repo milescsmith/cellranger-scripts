@@ -1,3 +1,10 @@
+# [0.7.0] - 2022-05-06
+
+## Fixed
+
+- There are things other than GEX libraries, like TCR and BCR, so maybe we should label those appropriately in
+    the multi config csv?  Well, that is now fixed.
+
 # [0.6.0] - 2022-05-05
 
 ## Fixed

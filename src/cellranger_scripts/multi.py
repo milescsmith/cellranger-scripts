@@ -68,7 +68,7 @@ def create_library_section(
     if np.any(bcr_libraries):
         reformatted_bcr_libs = pd.DataFrame(
             data={
-                "fastq_id": gex_libraries["Sample_Name"],
+                "fastq_id": bcr_libraries["Sample_Name"],
                 "fastqs": [
                     str(project_path.joinpath(_)) for _ in bcr_libraries["Sample_ID"]
                 ],
@@ -84,7 +84,7 @@ def create_library_section(
     if np.any(tcr_libraries):
         reformatted_tcr_libs = pd.DataFrame(
             data={
-                "fastq_id": gex_libraries["Sample_Name"],
+                "fastq_id": tcr_libraries["Sample_Name"],
                 "fastqs": [
                     str(project_path.joinpath(_)) for _ in tcr_libraries["Sample_ID"]
                 ],

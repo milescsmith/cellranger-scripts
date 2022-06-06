@@ -1,4 +1,11 @@
-# [0.8.8] - 2022-06-06
+# [0.8.3] - 2022-06-06
+
+## Changed
+
+- Use the "Sample_Project" data for the folder name instead of the "Sample_ID" if the "Sample_ID"
+  data is used to name the fastqs
+
+# [0.8.2] - 2022-06-06
 
 ## Added
 

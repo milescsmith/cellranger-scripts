@@ -35,7 +35,10 @@ def create_library_section(
         The rate at which reads from the provided FASTQ files are sampled.
         Must be strictly greater than 0 and less than or equal to 1. By default None
     use_sample_name : Optional[bool], optional
-        are the libraries prefixed with the information from the "Sample_Name" column?
+        Are the libraries prefixed with the information from the "Sample_Name" column?
+        If so, use the samplesheet "Sample_Name" column in the config "fastq_id" column
+        and the samplesheet "Sample_ID" column in the config "fastqs" column; otherwise,
+        use "Sample_ID" and "Sample_Project", respectively
 
     Returns
     -------
@@ -53,8 +56,10 @@ def create_library_section(
 
     if use_sample_name:
         fastq_id = "Sample_Name"
+        folder_name = "Sample_ID"
     else:
         fastq_id = "Sample_ID"
+        folder_name = "Sample_Project"
 
     gex_libraries = df[df["Sample_Name"].str.contains("gex")]
     if np.any(gex_libraries):
@@ -62,7 +67,7 @@ def create_library_section(
             data={
                 "fastq_id": gex_libraries[fastq_id],
                 "fastqs": [
-                    str(project_path.joinpath(_)) for _ in gex_libraries["Sample_ID"]
+                    str(project_path.joinpath(_)) for _ in gex_libraries[folder_name]
                 ],
                 "lanes": lanes,
                 "feature_types": "Gene Expression",
@@ -78,7 +83,7 @@ def create_library_section(
             data={
                 "fastq_id": bcr_libraries[fastq_id],
                 "fastqs": [
-                    str(project_path.joinpath(_)) for _ in bcr_libraries["Sample_ID"]
+                    str(project_path.joinpath(_)) for _ in bcr_libraries[folder_name]
                 ],
                 "lanes": lanes,
                 "feature_types": "VDJ-B",
@@ -94,7 +99,7 @@ def create_library_section(
             data={
                 "fastq_id": tcr_libraries[fastq_id],
                 "fastqs": [
-                    str(project_path.joinpath(_)) for _ in tcr_libraries["Sample_ID"]
+                    str(project_path.joinpath(_)) for _ in tcr_libraries[folder_name]
                 ],
                 "lanes": lanes,
                 "feature_types": "VDJ-T",
@@ -112,7 +117,7 @@ def create_library_section(
             data={
                 "fastq_id": feature_libraries[fastq_id],
                 "fastqs": [
-                    str(project_path.joinpath(_)) for _ in feature_libraries["Sample_ID"]
+                    str(project_path.joinpath(_)) for _ in feature_libraries[folder_name]
                 ],
                 "lanes": lanes,
                 "feature_types": "Antibody Capture",

@@ -1,3 +1,9 @@
+# [0.8.1] - 2022-06-06
+
+## Added
+
+- added few spots to log info for debugging purposes
+
 # [0.8.0] - 2022-06-06
 
 ## Added
@@ -48,6 +54,9 @@
 - Fixed where extra `cellranger` was being added to the path to the cellranger executable
 - Fixed where an extra space was being added at the end of the lines for the job script in `_multi_job`
 
+[0.8.1]: https://github.com/milescsmith/cellranger-scripts/releases/tag/0.8.0...0.8.1
+[0.8.0]: https://github.com/milescsmith/cellranger-scripts/releases/tag/0.7.0...0.8.0
+[0.7.0]: https://github.com/milescsmith/cellranger-scripts/releases/tag/0.6.0...0.7.0
 [0.6.0]: https://github.com/milescsmith/cellranger-scripts/releases/tag/0.5.0...0.6.0
 [0.5.0]: https://github.com/milescsmith/cellranger-scripts/releases/tag/0.4.0...0.5.0
 [0.4.0]: https://github.com/milescsmith/cellranger-scripts/releases/tag/0.3.0...0.4.0

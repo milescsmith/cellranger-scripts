@@ -8,25 +8,17 @@
             "console": "integratedTerminal",
             "justMyCode": true,
             "args": [
-                "multi_config",
-                "--gex_ref",
-                "/mnt/group/references/genomic/homo_sapiens/indices/refdata-gex-GRCh38-2020-A",
-                "--vdj_ref",
-                "/mnt/group/references/genomic/homo_sapiens/indices/refdata-cellranger-vdj-GRCh38-alts-ensembl-5.0.0",
-                "--feature_ref",
-                "/mnt/group/references/miscellaneous/TotalSeq_C_Human_Universal_Cocktail_399905_Antibody_reference_UMI_counting.csv",
-                "-e",
-                "20000",
+                "multi_config", 
+                "--gex_ref", "/mnt/group/references/genomic/homo_sapiens/indices/refdata-gex-GRCh38-2020-A",
+                "--vdj_ref", "/mnt/group/references/genomic/homo_sapiens/sequences/refdata-cellranger-vdj-GRCh38-alts-ensembl-7.0.0/",
+                "--feature_ref", "/mnt/group/references/miscellaneous/TotalSeq_C_Human_Universal_Cocktail_399905_Antibody_reference_UMI_counting.csv",
+                "--job_script", "SLURM",
+                "--data_subfolder", "data/fastqs/03_pam_17-32",
                 "--bypass_checks",
-                "-j",
-                "SLURM",
-                "-d",
-                "data/fastqs/01_pilot_run/ANA_multiome_pilot",
-                "/mnt/scratch/ana_multiome/metadata/01_pilot_run/samplesheet.csv",
+                "/mnt/scratch/ana_multiome/metadata/03_pam_17-32/samplesheet.csv",
                 "/s/guth-aci/ana_multiome",
                 "/home/milo/workspace/cellranger-scripts/tests",
-                "--cellranger_path",
-                "/usr/bin/cellranger",
+                "--cellranger_path", "/usr/bin/cellranger"
             ]
         }
     ]

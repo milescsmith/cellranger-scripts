@@ -52,6 +52,7 @@ pyupgrade = "^2.29.1"
 furo = ">=2021.11.12"
 isort = "^5.10.1"
 bandit = "1.7.2"
+ipython = "^8.4.0"
 
 [tool.poetry.scripts]
 cellranger-scripts = "cellranger_scripts.__main__:app"

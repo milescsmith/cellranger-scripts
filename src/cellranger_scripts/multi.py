@@ -15,6 +15,7 @@ def create_library_section(
     data_subfolder: Optional[Path] = None,
     lanes: str = "",
     subsample_rate: Optional[int] = None,
+    use_sample_name: Optional[bool] = False,
 ) -> pd.DataFrame:
     """Generate the config CSV for cellranger multi
 
@@ -33,6 +34,8 @@ def create_library_section(
     subsample_rate : Optional[int], optional
         The rate at which reads from the provided FASTQ files are sampled.
         Must be strictly greater than 0 and less than or equal to 1. By default None
+    use_sample_name : Optional[bool], optional
+        are the libraries prefixed with the information from the "Sample_Name" column?
 
     Returns
     -------
@@ -48,16 +51,21 @@ def create_library_section(
     if data_subfolder is not None:
         project_path = project_path.joinpath(data_subfolder)
 
+    if use_sample_name:
+        fastq_id = "Sample_Name"
+    else:
+        fastq_id = "Sample_ID"
+
     gex_libraries = df[df["Sample_Name"].str.contains("gex")]
     if np.any(gex_libraries):
         reformatted_gex_libs = pd.DataFrame(
             data={
-                "fastq_id": gex_libraries["Sample_Name"],
+                "fastq_id": gex_libraries[fastq_id],
                 "fastqs": [
                     str(project_path.joinpath(_)) for _ in gex_libraries["Sample_ID"]
                 ],
                 "lanes": lanes,
-                "feature_types": "gene expression",
+                "feature_types": "Gene Expression",
                 "subsample_rate": "" if subsample_rate is None else subsample_rate,
             }
         )
@@ -68,12 +76,12 @@ def create_library_section(
     if np.any(bcr_libraries):
         reformatted_bcr_libs = pd.DataFrame(
             data={
-                "fastq_id": bcr_libraries["Sample_Name"],
+                "fastq_id": bcr_libraries[fastq_id],
                 "fastqs": [
                     str(project_path.joinpath(_)) for _ in bcr_libraries["Sample_ID"]
                 ],
                 "lanes": lanes,
-                "feature_types": "vdj-b",
+                "feature_types": "VDJ-B",
                 "subsample_rate": "" if subsample_rate is None else subsample_rate,
             }
         )
@@ -84,12 +92,12 @@ def create_library_section(
     if np.any(tcr_libraries):
         reformatted_tcr_libs = pd.DataFrame(
             data={
-                "fastq_id": tcr_libraries["Sample_Name"],
+                "fastq_id": tcr_libraries[fastq_id],
                 "fastqs": [
                     str(project_path.joinpath(_)) for _ in tcr_libraries["Sample_ID"]
                 ],
                 "lanes": lanes,
-                "feature_types": "vdj-t",
+                "feature_types": "VDJ-T",
                 "subsample_rate": "" if subsample_rate is None else subsample_rate,
             }
         )
@@ -102,12 +110,12 @@ def create_library_section(
     if np.any(feature_libraries):
         reformatted_feature_libs = pd.DataFrame(
             data={
-                "fastq_id": feature_libraries["Sample_Name"],
+                "fastq_id": feature_libraries[fastq_id],
                 "fastqs": [
                     str(project_path.joinpath(_)) for _ in feature_libraries["Sample_ID"]
                 ],
                 "lanes": lanes,
-                "feature_types": "antibody capture",
+                "feature_types": "Antibody Capture",
                 "subsample_rate": "" if subsample_rate is None else subsample_rate,
             }
         )

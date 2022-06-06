@@ -1,9 +1,19 @@
 # [0.8.0] - 2022-06-06
 
+## Added
+
+- added an option to specify whether to use the "Sample_ID" or "Sample_Name" columns from the samplesheet when
+  naming files in the config file
+
 ## Changed
 
 - Using `structlog` now
 - Update dependencies
+
+## Fixed
+
+- the `[Data]` section of the samplesheet is now found automatically instead of the number of rows being hardcoded
+- the sample name is now properly used in the job script for the `--id` argument
 
 # [0.7.0] - 2022-05-06
 

@@ -23,6 +23,7 @@ from structlog import get_logger
 install(show_locals=True)
 log = get_logger()
 
+
 def version_callback(value: bool):
     """Prints the version of the package."""
     if value:
@@ -224,7 +225,9 @@ def multi_config(
     """Generate library config csvs for Cell Ranger multi."""
     log.info("loading samplesheet...", samplesheet=str(samplesheet))
     if samplesheet.exists():
-        ss = pd.read_csv(samplesheet, skiprows=8)
+        skiprows = [_.rstrip(",") for _ in samplesheet.read_text().split("\n")].index('[Data]')
+        ss = pd.read_csv(samplesheet, skiprows=skiprows + 1)
+    log.info(f"found {ss.shape[0]} rows")
 
     if not bypass_checks:
         if gene_expression_reference:
@@ -233,7 +236,7 @@ def multi_config(
                 ref=str(gene_expression_reference),
                 exists=gene_expression_reference.exists(),
                 is_dir=gene_expression_reference.is_dir()
-                )
+            )
             if (
                 not gene_expression_reference.exists()
                 and not gene_expression_reference.is_dir()
@@ -247,7 +250,7 @@ def multi_config(
                 ref=str(vdj_reference),
                 exists=vdj_reference.exists(),
                 is_dir=vdj_reference.is_dir()
-                )
+            )
             if not vdj_reference.exists() and not vdj_reference.is_dir():
                 raise FileNotFoundError(
                     "The path to the VDJ reference does not appear to be valid"
@@ -258,7 +261,7 @@ def multi_config(
                 ref=str(feature_reference),
                 exists=feature_reference.exists(),
                 is_file=feature_reference.is_file()
-                )
+            )
             if not feature_reference.exists() and not feature_reference.is_file():
                 raise FileNotFoundError(
                     "The path to the feature reference does not appear to be valid"
@@ -388,9 +391,9 @@ def multi_job(
             raise FileNotFoundError(
                 "No path to the cellranger executable was provided and it does not appear to be on the PATH."
             )
-    
+
     cellranger_path = Path(cellranger_path)
-    
+
     if cellranger_path.is_dir():
         cellranger_path = cellranger_path.joinpath("cellranger")
 
@@ -400,6 +403,7 @@ def multi_job(
     }
     kwargs["multi_config"] = multi_config
     kwargs["cellranger_path"] = cellranger_path
+    kwargs["sample_name"] = job_name
     return _multi_job(**kwargs)
 
 

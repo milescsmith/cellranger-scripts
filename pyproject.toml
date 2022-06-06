@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cellranger_scripts"
-version = "0.7.0"
+version = "0.7.1"
 description = "cellranger_scripts"
 authors = ["Miles Smith <miles-smith@omrf.org>"]
 license = "GPL-3.0"

@@ -230,6 +230,7 @@ def multi_config(
     log.info(f"found {ss.shape[0]} rows")
 
     if not bypass_checks:
+        log.info("Performing checks...")
         if gene_expression_reference:
             log.info(
                 "checking for the existence of the gene expression reference\t",
@@ -246,7 +247,7 @@ def multi_config(
                 )
         if vdj_reference:
             log.info(
-                "checking for the existence of the vdj reference\t\t\t", 
+                "checking for the existence of the vdj reference\t\t\t",                 
                 ref=str(vdj_reference),
                 exists=vdj_reference.exists(),
                 is_dir=vdj_reference.is_dir()
@@ -269,6 +270,7 @@ def multi_config(
 
     # TODO: check that the FASTQs are where we say they are
     # TODO: make adding each library optional?
+    log.info("Creating config sheets...", split=split_by_sample_name)
     if split_by_sample_name:
         per_sample_multiconfig = ss.groupby("Sample_Project").apply(
             create_multi_sheet,
@@ -307,6 +309,7 @@ def multi_config(
             subsample_rate=subsample_rate,
         )
         proj_name = ss["Sample_Project"][0]
+        log.info("writing job file", outdir=str(outdir))
         with outdir.joinpath(proj_name).with_suffix(".csv").open("w") as of:
             of.writelines(multiconfig_str)
 

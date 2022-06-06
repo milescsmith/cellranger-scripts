@@ -7,17 +7,21 @@ from typing import List, Optional
 import pandas as pd
 import typer
 
-import sys
 from pathlib import Path
-sys.path[0] = str(Path(sys.path[0]).parent)
+
 
 from . import __version__, console
 from .multi import create_multi_sheet
 from .slurm.header import create_slurm_header
 from .utils import resolve, parse_args
 
+from rich.traceback import install
+from structlog import get_logger
+
 # from . import typer_funcs
 
+install(show_locals=True)
+log = get_logger()
 
 def version_callback(value: bool):
     """Prints the version of the package."""
@@ -218,11 +222,18 @@ def multi_config(
     ),
 ) -> None:
     """Generate library config csvs for Cell Ranger multi."""
+    log.info("loading samplesheet...", samplesheet=str(samplesheet))
     if samplesheet.exists():
         ss = pd.read_csv(samplesheet, skiprows=8)
 
     if not bypass_checks:
         if gene_expression_reference:
+            log.info(
+                "checking for the existence of the gene expression reference\t",
+                ref=str(gene_expression_reference),
+                exists=gene_expression_reference.exists(),
+                is_dir=gene_expression_reference.is_dir()
+                )
             if (
                 not gene_expression_reference.exists()
                 and not gene_expression_reference.is_dir()
@@ -231,11 +242,23 @@ def multi_config(
                     "The path to the gene expression reference does not appear to be valid"
                 )
         if vdj_reference:
+            log.info(
+                "checking for the existence of the vdj reference\t\t\t", 
+                ref=str(vdj_reference),
+                exists=vdj_reference.exists(),
+                is_dir=vdj_reference.is_dir()
+                )
             if not vdj_reference.exists() and not vdj_reference.is_dir():
                 raise FileNotFoundError(
                     "The path to the VDJ reference does not appear to be valid"
                 )
         if feature_reference:
+            log.info(
+                "checking for the existence of the feature reference\t\t",
+                ref=str(feature_reference),
+                exists=feature_reference.exists(),
+                is_file=feature_reference.is_file()
+                )
             if not feature_reference.exists() and not feature_reference.is_file():
                 raise FileNotFoundError(
                     "The path to the feature reference does not appear to be valid"
@@ -258,8 +281,10 @@ def multi_config(
             with outdir.joinpath(per_sample_multiconfig.index[i]).with_suffix(
                 ".csv"
             ).open(mode="w+") as mc:
+                log.info("writing config to file", outdir=str(outdir), index=i, name=per_sample_multiconfig.index[i])
                 mc.writelines(j)
             if job_manager:
+                log.info("writing job file", outdir=str(outdir), job_name=per_sample_multiconfig.index[i], name=per_sample_multiconfig.index[i])
                 multi_job(
                     multi_config=outdir.joinpath(
                         per_sample_multiconfig.index[i]

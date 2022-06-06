@@ -1,3 +1,10 @@
+# [0.8.0] - 2022-06-06
+
+## Changed
+
+- Using `structlog` now
+- Update dependencies
+
 # [0.7.0] - 2022-05-06
 
 ## Fixed

@@ -105,7 +105,7 @@ def create_library_section(
         reformatted_tcr_libs = None
 
     feature_libraries = df[
-        df["Sample_Name"].str.contains("feature|antibody|totalseq|citeseq", regex=True)
+        df["Sample_Name"].str.contains("feature|antibody|totalseq|citeseq|feat", regex=True)
     ]
     if np.any(feature_libraries):
         reformatted_feature_libs = pd.DataFrame(

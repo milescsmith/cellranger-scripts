@@ -1,3 +1,9 @@
+# [0.8.8] - 2022-06-06
+
+## Added
+
+- added `feat` to the autodetect list for sample names
+
 # [0.8.1] - 2022-06-06
 
 ## Added

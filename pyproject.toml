@@ -28,7 +28,7 @@ structlog = "^21.5.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
-coverage = {extras = ["toml"], version = "^6.1"}
+coverage = {extras = ["toml"], version = "^7.1"}
 safety = "^1.10.3"
 mypy = "^1.0"
 typeguard = "^2.13.2"

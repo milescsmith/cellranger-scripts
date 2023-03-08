@@ -1,0 +1,498 @@
+Using OS Login user [mileschristiansmith_gmail_com] instead of requested user [mileschristiansmith]
+Existing host keys found in /home/milo/.ssh/google_compute_known_hosts
+OpenSSH_8.2p1 Ubuntu-4ubuntu0.1, OpenSSL 1.1.1f  31 Mar 2020
+debug1: Reading configuration data /home/milo/.ssh/config
+debug1: Reading configuration data /etc/ssh/ssh_config
+debug1: /etc/ssh/ssh_config line 19: include /etc/ssh/ssh_config.d/*.conf matched no files
+debug1: /etc/ssh/ssh_config line 21: Applying options for *
+debug1: Connecting to 34.122.39.17 [34.122.39.17] port 22.
+debug1: Connection established.
+debug1: identity file /home/milo/.ssh/google_compute_engine type 0
+debug1: identity file /home/milo/.ssh/google_compute_engine-cert type -1
+debug1: Local version string SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.1
+debug1: Remote protocol version 2.0, remote software version OpenSSH_8.2p1 Ubuntu-4ubuntu0.5
+debug1: match: OpenSSH_8.2p1 Ubuntu-4ubuntu0.5 pat OpenSSH* compat 0x04000000
+debug1: Authenticating to 34.122.39.17:22 as 'mileschristiansmith_gmail_com'
+debug1: using hostkeyalias: compute.1568953613680072371
+debug1: SSH2_MSG_KEXINIT sent
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: algorithm: curve25519-sha256
+debug1: kex: host key algorithm: ecdsa-sha2-nistp256
+debug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
+debug1: Server host key: ecdsa-sha2-nistp256 SHA256:BSmQRyY3MgMY4WS7TePClr5jB61pHpRN2czDriWzAWM
+debug1: using hostkeyalias: compute.1568953613680072371
+debug1: Host 'compute.1568953613680072371' is known and matches the ECDSA host key.
+debug1: Found key in /home/milo/.ssh/google_compute_known_hosts:22
+debug1: rekey out after 134217728 blocks
+debug1: SSH2_MSG_NEWKEYS sent
+debug1: expecting SSH2_MSG_NEWKEYS
+debug1: SSH2_MSG_NEWKEYS received
+debug1: rekey in after 134217728 blocks
+debug1: Will attempt key: /home/milo/.ssh/google_compute_engine RSA SHA256:4Uoo8V0keAujmuYjQesZPxSxDTUG2Qch/sXL8ldnH+I explicit
+debug1: SSH2_MSG_EXT_INFO received
+debug1: kex_input_ext_info: server-sig-algs=<ssh-ed25519,sk-ssh-ed25519@openssh.com,ssh-rsa,rsa-sha2-256,rsa-sha2-512,ssh-dss,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,sk-ecdsa-sha2-nistp256@openssh.com>
+debug1: SSH2_MSG_SERVICE_ACCEPT received
+debug1: Authentications that can continue: publickey
+debug1: Next authentication method: publickey
+debug1: Offering public key: /home/milo/.ssh/google_compute_engine RSA SHA256:4Uoo8V0keAujmuYjQesZPxSxDTUG2Qch/sXL8ldnH+I explicit
+debug1: Server accepts key: /home/milo/.ssh/google_compute_engine RSA SHA256:4Uoo8V0keAujmuYjQesZPxSxDTUG2Qch/sXL8ldnH+I explicit
+debug1: Authentication succeeded (publickey).
+Authenticated to 34.122.39.17 ([34.122.39.17]:22).
+debug1: Local connections to LOCALHOST:9000 forwarded to remote address localhost:8888
+debug1: Local forwarding listening on ::1 port 9000.
+debug1: channel 0: new [port listener]
+debug1: Local forwarding listening on 127.0.0.1 port 9000.
+debug1: channel 1: new [port listener]
+debug1: Requesting no-more-sessions@openssh.com
+debug1: Entering interactive session.
+debug1: pledge: network
+debug1: client_input_global_request: rtype hostkeys-00@openssh.com want_reply 0
+debug1: Remote: /usr/bin/google_authorized_keys:5: key options: agent-forwarding port-forwarding pty user-rc x11-forwarding
+debug1: Remote: /usr/bin/google_authorized_keys:5: key options: agent-forwarding port-forwarding pty user-rc x11-forwarding
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+Using OS Login user [mileschristiansmith_gmail_com] instead of requested user [mileschristiansmith]
+Existing host keys found in /home/milo/.ssh/google_compute_known_hosts
+OpenSSH_8.2p1 Ubuntu-4ubuntu0.1, OpenSSL 1.1.1f  31 Mar 2020
+debug1: Reading configuration data /home/milo/.ssh/config
+debug1: Reading configuration data /etc/ssh/ssh_config
+debug1: /etc/ssh/ssh_config line 19: include /etc/ssh/ssh_config.d/*.conf matched no files
+debug1: /etc/ssh/ssh_config line 21: Applying options for *
+debug1: Connecting to 34.122.39.17 [34.122.39.17] port 22.
+debug1: Connection established.
+debug1: identity file /home/milo/.ssh/google_compute_engine type 0
+debug1: identity file /home/milo/.ssh/google_compute_engine-cert type -1
+debug1: Local version string SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.1
+debug1: Remote protocol version 2.0, remote software version OpenSSH_8.2p1 Ubuntu-4ubuntu0.5
+debug1: match: OpenSSH_8.2p1 Ubuntu-4ubuntu0.5 pat OpenSSH* compat 0x04000000
+debug1: Authenticating to 34.122.39.17:22 as 'mileschristiansmith_gmail_com'
+debug1: using hostkeyalias: compute.1568953613680072371
+debug1: SSH2_MSG_KEXINIT sent
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: algorithm: curve25519-sha256
+debug1: kex: host key algorithm: ecdsa-sha2-nistp256
+debug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
+debug1: Server host key: ecdsa-sha2-nistp256 SHA256:BSmQRyY3MgMY4WS7TePClr5jB61pHpRN2czDriWzAWM
+debug1: using hostkeyalias: compute.1568953613680072371
+debug1: Host 'compute.1568953613680072371' is known and matches the ECDSA host key.
+debug1: Found key in /home/milo/.ssh/google_compute_known_hosts:22
+debug1: rekey out after 134217728 blocks
+debug1: SSH2_MSG_NEWKEYS sent
+debug1: expecting SSH2_MSG_NEWKEYS
+debug1: SSH2_MSG_NEWKEYS received
+debug1: rekey in after 134217728 blocks
+debug1: Will attempt key: /home/milo/.ssh/google_compute_engine RSA SHA256:4Uoo8V0keAujmuYjQesZPxSxDTUG2Qch/sXL8ldnH+I explicit
+debug1: SSH2_MSG_EXT_INFO received
+debug1: kex_input_ext_info: server-sig-algs=<ssh-ed25519,sk-ssh-ed25519@openssh.com,ssh-rsa,rsa-sha2-256,rsa-sha2-512,ssh-dss,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,sk-ecdsa-sha2-nistp256@openssh.com>
+debug1: SSH2_MSG_SERVICE_ACCEPT received
+debug1: Authentications that can continue: publickey
+debug1: Next authentication method: publickey
+debug1: Offering public key: /home/milo/.ssh/google_compute_engine RSA SHA256:4Uoo8V0keAujmuYjQesZPxSxDTUG2Qch/sXL8ldnH+I explicit
+debug1: Server accepts key: /home/milo/.ssh/google_compute_engine RSA SHA256:4Uoo8V0keAujmuYjQesZPxSxDTUG2Qch/sXL8ldnH+I explicit
+debug1: Authentication succeeded (publickey).
+Authenticated to 34.122.39.17 ([34.122.39.17]:22).
+debug1: Local connections to LOCALHOST:9000 forwarded to remote address localhost:8888
+debug1: Local forwarding listening on ::1 port 9000.
+bind [::1]:9000: Address already in use
+debug1: Local forwarding listening on 127.0.0.1 port 9000.
+bind [127.0.0.1]:9000: Address already in use
+channel_setup_fwd_listener_tcpip: cannot listen to port: 9000
+Could not request local forwarding.
+debug1: Requesting no-more-sessions@openssh.com
+debug1: Entering interactive session.
+debug1: pledge: network
+debug1: client_input_global_request: rtype hostkeys-00@openssh.com want_reply 0
+debug1: Remote: /usr/bin/google_authorized_keys:3: key options: agent-forwarding port-forwarding pty user-rc x11-forwarding
+debug1: Remote: /usr/bin/google_authorized_keys:3: key options: agent-forwarding port-forwarding pty user-rc x11-forwarding
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+Connection to 34.122.39.17 closed by remote host.
+Transferred: sent 3192, received 2936 bytes, in 50.4 seconds
+Bytes per second: sent 63.3, received 58.2
+debug1: Exit status -1
+
+Recommendation: To check for possible causes of SSH connectivity issues and get
+recommendations, rerun the ssh command with the --troubleshoot option.
+
+gcloud compute ssh glenn --project=guthridge-nih-strides-projects --zone=us-central1-f --troubleshoot
+
+Or, to investigate an IAP tunneling issue:
+
+gcloud compute ssh glenn --project=guthridge-nih-strides-projects --zone=us-central1-f --troubleshoot --tunnel-through-iap
+
+ERROR: (gcloud.compute.ssh) [/bin/ssh] exited with return code [255].
+debug1: channel 0: free: port listener, nchannels 2
+debug1: channel 1: free: port listener, nchannels 1
+Connection to 34.122.39.17 closed by remote host.
+Transferred: sent 4176, received 5888 bytes, in 9886.4 seconds
+Bytes per second: sent 0.4, received 0.6
+debug1: Exit status -1
+
+Recommendation: To check for possible causes of SSH connectivity issues and get
+recommendations, rerun the ssh command with the --troubleshoot option.
+
+gcloud compute ssh glenn --project=guthridge-nih-strides-projects --zone=us-central1-f --troubleshoot
+
+Or, to investigate an IAP tunneling issue:
+
+gcloud compute ssh glenn --project=guthridge-nih-strides-projects --zone=us-central1-f --troubleshoot --tunnel-through-iap
+
+ERROR: (gcloud.compute.ssh) [/bin/ssh] exited with return code [255].
+Using OS Login user [mileschristiansmith_gmail_com] instead of requested user [mileschristiansmith]
+Existing host keys found in /home/milo/.ssh/google_compute_known_hosts
+OpenSSH_8.2p1 Ubuntu-4ubuntu0.1, OpenSSL 1.1.1f  31 Mar 2020
+debug1: Reading configuration data /home/milo/.ssh/config
+debug1: Reading configuration data /etc/ssh/ssh_config
+debug1: /etc/ssh/ssh_config line 19: include /etc/ssh/ssh_config.d/*.conf matched no files
+debug1: /etc/ssh/ssh_config line 21: Applying options for *
+debug1: Connecting to 34.173.132.28 [34.173.132.28] port 22.
+debug1: connect to address 34.173.132.28 port 22: Connection refused
+ssh: connect to host 34.173.132.28 port 22: Connection refused
+
+Recommendation: To check for possible causes of SSH connectivity issues and get
+recommendations, rerun the ssh command with the --troubleshoot option.
+
+gcloud compute ssh glenn --project=guthridge-nih-strides-projects --zone=us-central1-f --troubleshoot
+
+Or, to investigate an IAP tunneling issue:
+
+gcloud compute ssh glenn --project=guthridge-nih-strides-projects --zone=us-central1-f --troubleshoot --tunnel-through-iap
+
+ERROR: (gcloud.compute.ssh) [/bin/ssh] exited with return code [255].
+Using OS Login user [mileschristiansmith_gmail_com] instead of requested user [mileschristiansmith]
+Existing host keys found in /home/milo/.ssh/google_compute_known_hosts
+OpenSSH_8.2p1 Ubuntu-4ubuntu0.1, OpenSSL 1.1.1f  31 Mar 2020
+debug1: Reading configuration data /home/milo/.ssh/config
+debug1: Reading configuration data /etc/ssh/ssh_config
+debug1: /etc/ssh/ssh_config line 19: include /etc/ssh/ssh_config.d/*.conf matched no files
+debug1: /etc/ssh/ssh_config line 21: Applying options for *
+debug1: Connecting to 34.173.132.28 [34.173.132.28] port 22.
+debug1: Connection established.
+debug1: identity file /home/milo/.ssh/google_compute_engine type 0
+debug1: identity file /home/milo/.ssh/google_compute_engine-cert type -1
+debug1: Local version string SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.1
+debug1: Remote protocol version 2.0, remote software version OpenSSH_8.2p1 Ubuntu-4ubuntu0.5
+debug1: match: OpenSSH_8.2p1 Ubuntu-4ubuntu0.5 pat OpenSSH* compat 0x04000000
+debug1: Authenticating to 34.173.132.28:22 as 'mileschristiansmith_gmail_com'
+debug1: using hostkeyalias: compute.1568953613680072371
+debug1: SSH2_MSG_KEXINIT sent
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: algorithm: curve25519-sha256
+debug1: kex: host key algorithm: ecdsa-sha2-nistp256
+debug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
+debug1: Server host key: ecdsa-sha2-nistp256 SHA256:BSmQRyY3MgMY4WS7TePClr5jB61pHpRN2czDriWzAWM
+debug1: using hostkeyalias: compute.1568953613680072371
+debug1: Host 'compute.1568953613680072371' is known and matches the ECDSA host key.
+debug1: Found key in /home/milo/.ssh/google_compute_known_hosts:22
+debug1: rekey out after 134217728 blocks
+debug1: SSH2_MSG_NEWKEYS sent
+debug1: expecting SSH2_MSG_NEWKEYS
+debug1: SSH2_MSG_NEWKEYS received
+debug1: rekey in after 134217728 blocks
+debug1: Will attempt key: /home/milo/.ssh/google_compute_engine RSA SHA256:4Uoo8V0keAujmuYjQesZPxSxDTUG2Qch/sXL8ldnH+I explicit
+debug1: SSH2_MSG_EXT_INFO received
+debug1: kex_input_ext_info: server-sig-algs=<ssh-ed25519,sk-ssh-ed25519@openssh.com,ssh-rsa,rsa-sha2-256,rsa-sha2-512,ssh-dss,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,sk-ecdsa-sha2-nistp256@openssh.com>
+debug1: SSH2_MSG_SERVICE_ACCEPT received
+debug1: Authentications that can continue: publickey
+debug1: Next authentication method: publickey
+debug1: Offering public key: /home/milo/.ssh/google_compute_engine RSA SHA256:4Uoo8V0keAujmuYjQesZPxSxDTUG2Qch/sXL8ldnH+I explicit
+debug1: Server accepts key: /home/milo/.ssh/google_compute_engine RSA SHA256:4Uoo8V0keAujmuYjQesZPxSxDTUG2Qch/sXL8ldnH+I explicit
+debug1: Authentication succeeded (publickey).
+Authenticated to 34.173.132.28 ([34.173.132.28]:22).
+debug1: Local connections to LOCALHOST:9000 forwarded to remote address localhost:8888
+debug1: Local forwarding listening on ::1 port 9000.
+debug1: channel 0: new [port listener]
+debug1: Local forwarding listening on 127.0.0.1 port 9000.
+debug1: channel 1: new [port listener]
+debug1: Requesting no-more-sessions@openssh.com
+debug1: Entering interactive session.
+debug1: pledge: network
+debug1: client_input_global_request: rtype hostkeys-00@openssh.com want_reply 0
+debug1: Remote: /usr/bin/google_authorized_keys:3: key options: agent-forwarding port-forwarding pty user-rc x11-forwarding
+debug1: Remote: /usr/bin/google_authorized_keys:3: key options: agent-forwarding port-forwarding pty user-rc x11-forwarding
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 2: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 4: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 5: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 6: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 7: new [direct-tcpip]
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 55016 to 127.0.0.1 port 9000, nchannels 8
+debug1: channel 4: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 55032 to 127.0.0.1 port 9000, nchannels 7
+debug1: channel 5: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 55038 to 127.0.0.1 port 9000, nchannels 6
+debug1: channel 7: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 55062 to 127.0.0.1 port 9000, nchannels 5
+debug1: channel 6: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 55054 to 127.0.0.1 port 9000, nchannels 4
+debug1: channel 2: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 55012 to 127.0.0.1 port 9000, nchannels 3
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 2: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 4: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 5: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 6: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 7: new [direct-tcpip]
+debug1: channel 5: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 54180 to 127.0.0.1 port 9000, nchannels 8
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 58436 to 127.0.0.1 port 9000, nchannels 7
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 5: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 8: new [direct-tcpip]
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 35430 to 127.0.0.1 port 9000, nchannels 9
+debug1: channel 5: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 35436 to 127.0.0.1 port 9000, nchannels 8
+debug1: channel 4: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 58434 to 127.0.0.1 port 9000, nchannels 7
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 36392 to 127.0.0.1 port 9000, nchannels 7
+debug1: channel 2: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 58428 to 127.0.0.1 port 9000, nchannels 6
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 2: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 4: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 5: new [direct-tcpip]
+debug1: channel 5: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 58602 to 127.0.0.1 port 9000, nchannels 9
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 45932 to 127.0.0.1 port 9000, nchannels 8
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 52674 to 127.0.0.1 port 9000, nchannels 8
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 5: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 9: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 10: new [direct-tcpip]
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 54322 to 127.0.0.1 port 9000, nchannels 11
+debug1: channel 5: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 42044 to 127.0.0.1 port 9000, nchannels 10
+debug1: channel 9: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 51980 to 127.0.0.1 port 9000, nchannels 9
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 55794 to 127.0.0.1 port 9000, nchannels 9
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 46978 to 127.0.0.1 port 9000, nchannels 9
+debug1: channel 4: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 45936 to 127.0.0.1 port 9000, nchannels 8
+debug1: channel 2: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 45934 to 127.0.0.1 port 9000, nchannels 7
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 2: new [direct-tcpip]
+debug1: channel 2: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 40590 to 127.0.0.1 port 9000, nchannels 7
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 2: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 44804 to 127.0.0.1 port 9000, nchannels 8
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 4: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 5: new [direct-tcpip]
+debug1: channel 4: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 39528 to 127.0.0.1 port 9000, nchannels 10
+debug1: channel 5: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 39532 to 127.0.0.1 port 9000, nchannels 9
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 4: new [direct-tcpip]
+debug1: channel 4: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 37200 to 127.0.0.1 port 9000, nchannels 9
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 4: new [direct-tcpip]
+debug1: channel 4: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 46540 to 127.0.0.1 port 9000, nchannels 9
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 38148 to 127.0.0.1 port 9000, nchannels 8
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 4: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 5: new [direct-tcpip]
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 53774 to 127.0.0.1 port 9000, nchannels 10
+debug1: channel 5: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 36580 to 127.0.0.1 port 9000, nchannels 9
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 47090 to 127.0.0.1 port 9000, nchannels 9
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 5: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 9: new [direct-tcpip]
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 58084 to 127.0.0.1 port 9000, nchannels 11
+debug1: channel 5: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 40120 to 127.0.0.1 port 9000, nchannels 10
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 52766 to 127.0.0.1 port 9000, nchannels 10
+debug1: channel 2: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 44790 to 127.0.0.1 port 9000, nchannels 9
+debug1: channel 4: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 53786 to 127.0.0.1 port 9000, nchannels 8
+debug1: channel 9: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 40134 to 127.0.0.1 port 9000, nchannels 7
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 2: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 4: new [direct-tcpip]
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 40278 to 127.0.0.1 port 9000, nchannels 9
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 49240 to 127.0.0.1 port 9000, nchannels 9
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 5: new [direct-tcpip]
+debug1: channel 5: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 43504 to 127.0.0.1 port 9000, nchannels 10
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 5: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 9: new [direct-tcpip]
+debug1: channel 9: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 41334 to 127.0.0.1 port 9000, nchannels 11
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 9: new [direct-tcpip]
+debug1: channel 9: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 46692 to 127.0.0.1 port 9000, nchannels 11
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 9: new [direct-tcpip]
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 57006 to 127.0.0.1 port 9000, nchannels 11
+debug1: channel 4: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 40288 to 127.0.0.1 port 9000, nchannels 10
+debug1: channel 5: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 54884 to 127.0.0.1 port 9000, nchannels 9
+debug1: channel 2: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 40272 to 127.0.0.1 port 9000, nchannels 8
+debug1: channel 9: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 50328 to 127.0.0.1 port 9000, nchannels 7
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 2: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 4: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 5: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 9: new [direct-tcpip]
+debug1: channel 4: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 43092 to 127.0.0.1 port 9000, nchannels 11
+debug1: channel 5: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 43102 to 127.0.0.1 port 9000, nchannels 10
+debug1: channel 9: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 53988 to 127.0.0.1 port 9000, nchannels 9
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 4: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 5: new [direct-tcpip]
+debug1: channel 5: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 42710 to 127.0.0.1 port 9000, nchannels 10
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 5: new [direct-tcpip]
+debug1: channel 0: free: port listener, nchannels 10
+debug1: channel 1: free: port listener, nchannels 9
+debug1: channel 2: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 43064 to 127.0.0.1 port 9000, nchannels 8
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 43078 to 127.0.0.1 port 9000, nchannels 7
+debug1: channel 4: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 60746 to 127.0.0.1 port 9000, nchannels 6
+debug1: channel 5: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 40700 to 127.0.0.1 port 9000, nchannels 5
+debug1: channel 6: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 54184 to 127.0.0.1 port 9000, nchannels 4
+debug1: channel 7: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 54186 to 127.0.0.1 port 9000, nchannels 3
+debug1: channel 8: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 35444 to 127.0.0.1 port 9000, nchannels 2
+debug1: channel 10: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 51986 to 127.0.0.1 port 9000, nchannels 1
+Connection to 34.173.132.28 closed by remote host.
+Transferred: sent 958764372, received 125997668 bytes, in 14211.7 seconds
+Bytes per second: sent 67462.9, received 8865.7
+debug1: Exit status -1
+
+Recommendation: To check for possible causes of SSH connectivity issues and get
+recommendations, rerun the ssh command with the --troubleshoot option.
+
+gcloud compute ssh glenn --project=guthridge-nih-strides-projects --zone=us-central1-f --troubleshoot
+
+Or, to investigate an IAP tunneling issue:
+
+gcloud compute ssh glenn --project=guthridge-nih-strides-projects --zone=us-central1-f --troubleshoot --tunnel-through-iap
+
+ERROR: (gcloud.compute.ssh) [/bin/ssh] exited with return code [255].

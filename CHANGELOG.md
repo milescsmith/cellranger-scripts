@@ -1,3 +1,14 @@
+* [1.0.0] - 2023-03-01
+
+** Added
+
+- Support for Cell Ranger ARC
+
+** Changed
+
+- renamed "__main__.py" to "cli.py":
+- moved the functions related to multi out of __main__.py and placed in multi.py
+
 # [0.8.3] - 2022-06-06
 
 ## Changed

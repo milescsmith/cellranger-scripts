@@ -1,0 +1,329 @@
+Using OS Login user [mileschristiansmith_gmail_com] instead of requested user [mileschristiansmith]
+Existing host keys found in /home/milo/.ssh/google_compute_known_hosts
+OpenSSH_8.2p1 Ubuntu-4ubuntu0.1, OpenSSL 1.1.1f  31 Mar 2020
+debug1: Reading configuration data /home/milo/.ssh/config
+debug1: Reading configuration data /etc/ssh/ssh_config
+debug1: /etc/ssh/ssh_config line 19: include /etc/ssh/ssh_config.d/*.conf matched no files
+debug1: /etc/ssh/ssh_config line 21: Applying options for *
+debug1: Connecting to 34.29.142.110 [34.29.142.110] port 22.
+debug1: Connection established.
+debug1: identity file /home/milo/.ssh/google_compute_engine type 0
+debug1: identity file /home/milo/.ssh/google_compute_engine-cert type -1
+debug1: Local version string SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.1
+debug1: Remote protocol version 2.0, remote software version OpenSSH_8.2p1 Ubuntu-4ubuntu0.5
+debug1: match: OpenSSH_8.2p1 Ubuntu-4ubuntu0.5 pat OpenSSH* compat 0x04000000
+debug1: Authenticating to 34.29.142.110:22 as 'mileschristiansmith_gmail_com'
+debug1: using hostkeyalias: compute.1568953613680072371
+debug1: SSH2_MSG_KEXINIT sent
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: algorithm: curve25519-sha256
+debug1: kex: host key algorithm: ecdsa-sha2-nistp256
+debug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
+debug1: Server host key: ecdsa-sha2-nistp256 SHA256:BSmQRyY3MgMY4WS7TePClr5jB61pHpRN2czDriWzAWM
+debug1: using hostkeyalias: compute.1568953613680072371
+debug1: Host 'compute.1568953613680072371' is known and matches the ECDSA host key.
+debug1: Found key in /home/milo/.ssh/google_compute_known_hosts:22
+debug1: rekey out after 134217728 blocks
+debug1: SSH2_MSG_NEWKEYS sent
+debug1: expecting SSH2_MSG_NEWKEYS
+debug1: SSH2_MSG_NEWKEYS received
+debug1: rekey in after 134217728 blocks
+debug1: Will attempt key: /home/milo/.ssh/google_compute_engine RSA SHA256:4Uoo8V0keAujmuYjQesZPxSxDTUG2Qch/sXL8ldnH+I explicit
+debug1: SSH2_MSG_EXT_INFO received
+debug1: kex_input_ext_info: server-sig-algs=<ssh-ed25519,sk-ssh-ed25519@openssh.com,ssh-rsa,rsa-sha2-256,rsa-sha2-512,ssh-dss,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,sk-ecdsa-sha2-nistp256@openssh.com>
+debug1: SSH2_MSG_SERVICE_ACCEPT received
+debug1: Authentications that can continue: publickey
+debug1: Next authentication method: publickey
+debug1: Offering public key: /home/milo/.ssh/google_compute_engine RSA SHA256:4Uoo8V0keAujmuYjQesZPxSxDTUG2Qch/sXL8ldnH+I explicit
+debug1: Server accepts key: /home/milo/.ssh/google_compute_engine RSA SHA256:4Uoo8V0keAujmuYjQesZPxSxDTUG2Qch/sXL8ldnH+I explicit
+debug1: Authentication succeeded (publickey).
+Authenticated to 34.29.142.110 ([34.29.142.110]:22).
+debug1: Local connections to LOCALHOST:9000 forwarded to remote address localhost:8888
+debug1: Local forwarding listening on ::1 port 9000.
+debug1: channel 0: new [port listener]
+debug1: Local forwarding listening on 127.0.0.1 port 9000.
+debug1: channel 1: new [port listener]
+debug1: Requesting no-more-sessions@openssh.com
+debug1: Entering interactive session.
+debug1: pledge: network
+debug1: client_input_global_request: rtype hostkeys-00@openssh.com want_reply 0
+debug1: Remote: /usr/bin/google_authorized_keys:2: key options: agent-forwarding port-forwarding pty user-rc x11-forwarding
+debug1: Remote: /usr/bin/google_authorized_keys:2: key options: agent-forwarding port-forwarding pty user-rc x11-forwarding
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 2: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 4: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 5: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 6: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 7: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 8: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 9: new [direct-tcpip]
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 47286 to 127.0.0.1 port 9000, nchannels 10
+debug1: channel 4: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 47292 to 127.0.0.1 port 9000, nchannels 9
+debug1: channel 5: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 47306 to 127.0.0.1 port 9000, nchannels 8
+debug1: channel 7: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 47322 to 127.0.0.1 port 9000, nchannels 7
+debug1: channel 2: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 47270 to 127.0.0.1 port 9000, nchannels 6
+debug1: channel 6: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 47308 to 127.0.0.1 port 9000, nchannels 5
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 2: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 4: new [direct-tcpip]
+debug1: channel 4: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 39616 to 127.0.0.1 port 9000, nchannels 7
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 4: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 5: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 6: new [direct-tcpip]
+debug1: channel 4: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 47424 to 127.0.0.1 port 9000, nchannels 9
+debug1: channel 6: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 34552 to 127.0.0.1 port 9000, nchannels 8
+debug1: channel 2: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 51740 to 127.0.0.1 port 9000, nchannels 7
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 51744 to 127.0.0.1 port 9000, nchannels 6
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 2: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 4: new [direct-tcpip]
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 41932 to 127.0.0.1 port 9000, nchannels 8
+debug1: channel 2: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 41920 to 127.0.0.1 port 9000, nchannels 7
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 2: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 6: new [direct-tcpip]
+debug1: channel 6: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 44646 to 127.0.0.1 port 9000, nchannels 9
+debug1: channel 2: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 44630 to 127.0.0.1 port 9000, nchannels 8
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 2: new [direct-tcpip]
+debug1: channel 2: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 47208 to 127.0.0.1 port 9000, nchannels 8
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 2: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 6: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 7: new [direct-tcpip]
+debug1: channel 7: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 34744 to 127.0.0.1 port 9000, nchannels 10
+debug1: channel 2: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 56096 to 127.0.0.1 port 9000, nchannels 9
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 44636 to 127.0.0.1 port 9000, nchannels 8
+debug1: channel 6: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 34730 to 127.0.0.1 port 9000, nchannels 7
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 2: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 6: new [direct-tcpip]
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 58478 to 127.0.0.1 port 9000, nchannels 9
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 7: new [direct-tcpip]
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 52480 to 127.0.0.1 port 9000, nchannels 10
+debug1: channel 7: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 52496 to 127.0.0.1 port 9000, nchannels 9
+debug1: channel 6: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 58484 to 127.0.0.1 port 9000, nchannels 8
+debug1: channel 2: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 57698 to 127.0.0.1 port 9000, nchannels 7
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 2: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 6: new [direct-tcpip]
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 42894 to 127.0.0.1 port 9000, nchannels 9
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 7: new [direct-tcpip]
+debug1: channel 7: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 43566 to 127.0.0.1 port 9000, nchannels 10
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 43550 to 127.0.0.1 port 9000, nchannels 9
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 55560 to 127.0.0.1 port 9000, nchannels 9
+debug1: channel 2: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 42886 to 127.0.0.1 port 9000, nchannels 8
+debug1: channel 6: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 42904 to 127.0.0.1 port 9000, nchannels 7
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 2: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 6: new [direct-tcpip]
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 46800 to 127.0.0.1 port 9000, nchannels 9
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 7: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 10: new [direct-tcpip]
+debug1: channel 10: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 49018 to 127.0.0.1 port 9000, nchannels 11
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 10: new [direct-tcpip]
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 48996 to 127.0.0.1 port 9000, nchannels 11
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 55286 to 127.0.0.1 port 9000, nchannels 11
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 55966 to 127.0.0.1 port 9000, nchannels 11
+debug1: channel 2: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 58622 to 127.0.0.1 port 9000, nchannels 10
+debug1: channel 6: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 46804 to 127.0.0.1 port 9000, nchannels 9
+debug1: channel 7: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 49004 to 127.0.0.1 port 9000, nchannels 8
+debug1: channel 10: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 56084 to 127.0.0.1 port 9000, nchannels 7
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 2: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: channel 2: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 60024 to 127.0.0.1 port 9000, nchannels 8
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 60028 to 127.0.0.1 port 9000, nchannels 7
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 2: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 6: new [direct-tcpip]
+debug1: channel 2: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 56692 to 127.0.0.1 port 9000, nchannels 9
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 38760 to 127.0.0.1 port 9000, nchannels 8
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 2: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: channel 6: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 38762 to 127.0.0.1 port 9000, nchannels 9
+debug1: channel 2: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 35316 to 127.0.0.1 port 9000, nchannels 8
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 2: new [direct-tcpip]
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 35324 to 127.0.0.1 port 9000, nchannels 8
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 6: new [direct-tcpip]
+debug1: enqueue packet: 94
+debug1: SSH2_MSG_KEXINIT sent
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: algorithm: curve25519-sha256
+debug1: kex: host key algorithm: ecdsa-sha2-nistp256
+debug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: Server host key: ecdsa-sha2-nistp256 SHA256:BSmQRyY3MgMY4WS7TePClr5jB61pHpRN2czDriWzAWM
+debug1: ssh_set_newkeys: rekeying out, input 109202756 bytes 13640234 blocks, output 1073906256 bytes 134202723 blocks
+debug1: rekey out after 134217728 blocks
+debug1: dequeue packet: 94
+debug1: SSH2_MSG_NEWKEYS sent
+debug1: expecting SSH2_MSG_NEWKEYS
+debug1: SSH2_MSG_NEWKEYS received
+debug1: ssh_set_newkeys: rekeying in, input 109202768 bytes 13640235 blocks, output 1073922660 bytes 2050 blocks
+debug1: rekey in after 134217728 blocks
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 35438 to 127.0.0.1 port 9000, nchannels 9
+debug1: channel 2: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 39148 to 127.0.0.1 port 9000, nchannels 8
+debug1: channel 6: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 49156 to 127.0.0.1 port 9000, nchannels 7
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 2: new [direct-tcpip]
+debug1: channel 2: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 44942 to 127.0.0.1 port 9000, nchannels 7
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 2: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 44948 to 127.0.0.1 port 9000, nchannels 8
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: channel 2: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 44944 to 127.0.0.1 port 9000, nchannels 8
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 2: new [direct-tcpip]
+debug1: channel 2: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 49450 to 127.0.0.1 port 9000, nchannels 8
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 2: new [direct-tcpip]
+debug1: channel 2: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 34556 to 127.0.0.1 port 9000, nchannels 8
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 2: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 6: new [direct-tcpip]
+debug1: channel 6: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 36860 to 127.0.0.1 port 9000, nchannels 9
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 6: new [direct-tcpip]
+debug1: channel 2: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 36854 to 127.0.0.1 port 9000, nchannels 9
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 36924 to 127.0.0.1 port 9000, nchannels 8
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 2: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: channel 2: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 42696 to 127.0.0.1 port 9000, nchannels 9
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 42708 to 127.0.0.1 port 9000, nchannels 8
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 2: new [direct-tcpip]
+debug1: channel 6: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 47904 to 127.0.0.1 port 9000, nchannels 8
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: channel 2: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 40582 to 127.0.0.1 port 9000, nchannels 8
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 2: new [direct-tcpip]
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 46560 to 127.0.0.1 port 9000, nchannels 8
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 6: new [direct-tcpip]
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 39994 to 127.0.0.1 port 9000, nchannels 9
+debug1: channel 2: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 42294 to 127.0.0.1 port 9000, nchannels 8
+debug1: channel 6: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 40000 to 127.0.0.1 port 9000, nchannels 7
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 2: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: channel 2: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 34178 to 127.0.0.1 port 9000, nchannels 8
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 34176 to 127.0.0.1 port 9000, nchannels 7
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 2: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 6: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 7: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 10: new [direct-tcpip]
+debug1: channel 6: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 33968 to 127.0.0.1 port 9000, nchannels 11
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 52918 to 127.0.0.1 port 9000, nchannels 10
+debug1: channel 7: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 33974 to 127.0.0.1 port 9000, nchannels 9
+debug1: channel 10: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 33976 to 127.0.0.1 port 9000, nchannels 8
+debug1: channel 2: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 52916 to 127.0.0.1 port 9000, nchannels 7
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 2: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 49464 to 127.0.0.1 port 9000, nchannels 8
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 3: new [direct-tcpip]
+debug1: channel 2: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 49448 to 127.0.0.1 port 9000, nchannels 8
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 2: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 6: new [direct-tcpip]
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 7: new [direct-tcpip]
+debug1: channel 2: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 43424 to 127.0.0.1 port 9000, nchannels 10
+debug1: Connection to port 9000 forwarding to localhost port 8888 requested.
+debug1: channel 2: new [direct-tcpip]
+debug1: channel 7: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 47732 to 127.0.0.1 port 9000, nchannels 10
+debug1: channel 6: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 43426 to 127.0.0.1 port 9000, nchannels 9
+debug1: channel 2: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 39058 to 127.0.0.1 port 9000, nchannels 8
+debug1: channel 3: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 35828 to 127.0.0.1 port 9000, nchannels 7
+debug1: channel 4: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 60442 to 127.0.0.1 port 9000, nchannels 6
+debug1: channel 8: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 42660 to 127.0.0.1 port 9000, nchannels 5
+debug1: channel 9: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 42662 to 127.0.0.1 port 9000, nchannels 4
+debug1: channel 5: free: direct-tcpip: listening port 9000 for localhost port 8888, connect from 127.0.0.1 port 40564 to 127.0.0.1 port 9000, nchannels 3
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1
+debug1: client_input_global_request: rtype keepalive@openssh.com want_reply 1

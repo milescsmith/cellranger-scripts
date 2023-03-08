@@ -1,16 +1,13 @@
-"""multi.py - functions specific to cellranger multi."""
+"""arc.py - functions specific to cellranger arc."""
 from pathlib import Path
-from typing import Optional, List
-from shutil import which
+from typing import Optional
 import re
 
 import typer
 
-from . import console
 from .slurm.header import create_slurm_header
 from .utils import resolve, parse_args
 from .enums import JobManager, StatusMessage, Partition
-
 import numpy as np
 import pandas as pd
 from typeguard import typechecked
@@ -23,8 +20,6 @@ log = get_logger()
 
 app = typer.Typer()
 
-
-# TODO: probably can place this in utils for multi, arc, and whatever else to use the same version?
 @typechecked
 def create_library_section(
     df: pd.DataFrame,
@@ -155,7 +150,7 @@ def create_library_section(
 
 
 @typechecked
-def create_multi_sheet(
+def create_arc_sheet(
     df: pd.DataFrame,
     project_path: Optional[Path] = None,
     data_subfolder: Optional[Path] = None,
@@ -210,19 +205,28 @@ def create_multi_sheet(
 
 @app.callback(invoke_without_command=True)
 @app.command(
-    name="multi_config",
+    name="arc_config",
     no_args_is_help=True,
     context_settings={"allow_extra_args": True, "ignore_unknown_options": True},
 )
-def multi_config(
-    samplesheet: Path = typer.Argument(
+def arc_config(
+    rna_samplesheet: Path = typer.Argument(
         ...,
         exists=True,
         file_okay=True,
         dir_okay=False,
         readable=True,
         resolve_path=True,
-        help="Path to the samplesheet.csv used by bcl2fastq",
+        help="Path to the samplesheet.csv used by bcl2fastq/bclconvert for the snRNA-seq libraries",
+    ),
+    atac_samplesheet: Path = typer.Argument(
+        ...,
+        exists=True,
+        file_okay=True,
+        dir_okay=False,
+        readable=True,
+        resolve_path=True,
+        help="Path to the samplesheet.csv used by bcl2fastq/bclconvert for the scATAC-seq libraries",
     ),
     project_path: Path = typer.Argument(
         ...,
@@ -257,33 +261,14 @@ def multi_config(
             "like 'project_path/data/fastqs')"
         ),
     ),
-    gene_expression_reference: Optional[Path] = typer.Option(
+    reference: Optional[Path] = typer.Option(
         None,
-        "--gex_ref",
-        "-g",
+        "--ref",
+        "-r",
         dir_okay=True,
         readable=True,
         resolve_path=True,
         help="Path to directory with the gene expression reference index",
-    ),
-    vdj_reference: Optional[Path] = typer.Option(
-        None,
-        "--vdj_ref",
-        "-v",
-        dir_okay=True,
-        readable=True,
-        resolve_path=True,
-        help="Path to directory with the VDJ reference index",
-    ),
-    feature_reference: Optional[Path] = typer.Option(
-        None,
-        "--feature_ref",
-        "-f",
-        dir_okay=False,
-        file_okay=True,
-        readable=True,
-        resolve_path=True,
-        help="Path to the feature reference file",
     ),
     subsample_rate: Optional[int] = typer.Option(
         None,
@@ -312,21 +297,6 @@ def multi_config(
         "-j",
         help="Create batch script for submission to a job manager",
     ),
-    # TODO: add these options to their respective sections
-    # gex_target_panel
-    # gex_no_target_umi_filter
-    # gex_r1_length
-    # gex_r2_length
-    # gex_chemistry
-    # gex_force_cells
-    # gex_include_introns
-    # gex_no_secondary
-    # gex_no_bam
-    # feature_r1_length
-    # feature_r2_length
-    # inner_enrichment_primers
-    # vdj_r1_length
-    # vdj_r2_length
     bypass_checks: Optional[bool] = typer.Option(
         True,
         "--bypass_checks",
@@ -339,64 +309,47 @@ def multi_config(
     ctx: typer.Context = typer.Option(
         ..., help="Extra options to pass to the job script"
     ),
-) -> None:
-    """Generate library config csvs for Cell Ranger multi."""
-    log.info("loading samplesheet...", samplesheet=str(samplesheet))
-    if samplesheet.exists():
-        skiprows = [_.rstrip(",") for _ in samplesheet.read_text().split("\n")].index('[Data]')
-        ss = pd.read_csv(samplesheet, skiprows=skiprows + 1)
-    log.info(f"found {ss.shape[0]} rows")
-
+):
+    """Generate library config csvs for Cell Ranger arc."""
+    log.info("loading snRNA-seq samplesheet...", rna_samplesheet=str(rna_samplesheet))
+    try:
+        skiprows = [_.rstrip(",") for _ in rna_samplesheet.read_text().split("\n")].index('[Data]')
+        rss = pd.read_csv(rna_samplesheet, skiprows=skiprows + 1)
+        log.info(f"found {rss.shape[0]} rows")
+    except FileNotFoundError as e:
+        log.error(f"The file {rna_samplesheet} was not found")
+        exit()
+    
+    log.info("loading scATAC-seq samplesheet...", atac_samplesheet=str(atac_samplesheet))
+    try:
+        skiprows = [_.rstrip(",") for _ in atac_samplesheet.read_text().split("\n")].index('[Data]')
+        ass = pd.read_csv(atac_samplesheet, skiprows=skiprows + 1)
+        log.info(f"found {ass.shape[0]} rows")
+    except FileNotFoundError as e:
+        log.error(f"The file {atac_samplesheet} was not found")
+    
     if not bypass_checks:
         log.info("Performing checks...")
-        if gene_expression_reference:
-            log.info(
-                "checking for the existence of the gene expression reference\t",
-                ref=str(gene_expression_reference),
-                exists=gene_expression_reference.exists(),
-                is_dir=gene_expression_reference.is_dir()
+        log.info(
+            "checking for the existence of the expression/genomic reference\t",
+            ref=str(reference),
+            exists=reference.exists(),
+            is_dir=reference.is_dir()
+        )
+        if (
+            not reference.exists()
+            and not reference.is_dir()
+        ):
+            raise FileNotFoundError(
+                "The path to the expression/genomic reference does not appear to be valid"
             )
-            if (
-                not gene_expression_reference.exists()
-                and not gene_expression_reference.is_dir()
-            ):
-                raise FileNotFoundError(
-                    "The path to the gene expression reference does not appear to be valid"
-                )
-        if vdj_reference:
-            log.info(
-                "checking for the existence of the vdj reference\t\t\t",                 
-                ref=str(vdj_reference),
-                exists=vdj_reference.exists(),
-                is_dir=vdj_reference.is_dir()
-            )
-            if not vdj_reference.exists() and not vdj_reference.is_dir():
-                raise FileNotFoundError(
-                    "The path to the VDJ reference does not appear to be valid"
-                )
-        if feature_reference:
-            log.info(
-                "checking for the existence of the feature reference\t\t",
-                ref=str(feature_reference),
-                exists=feature_reference.exists(),
-                is_file=feature_reference.is_file()
-            )
-            if not feature_reference.exists() and not feature_reference.is_file():
-                raise FileNotFoundError(
-                    "The path to the feature reference does not appear to be valid"
-                )
-
-    # TODO: check that the FASTQs are where we say they are
-    # TODO: make adding each library optional?
     log.info("Creating config sheets...", split=split_by_sample_name)
     if split_by_sample_name:
         per_sample_multiconfig = ss.groupby("Sample_Project").apply(
-            create_multi_sheet,
+            create_arc_sheet,
             project_path=project_path,
             data_subfolder=data_subfolder,  # I think we need to check if this exists and adjust accordingly?
-            gex_ref_path=gene_expression_reference,
-            vdj_ref_path=vdj_reference,
-            feature_ref_path=feature_reference,
+            ref_path=reference,
             expected_cells=expected_number_of_cells,
             subsample_rate=subsample_rate,
         )
@@ -408,200 +361,32 @@ def multi_config(
                 mc.writelines(j)
             if job_manager:
                 log.info("writing job file", outdir=str(outdir), job_name=per_sample_multiconfig.index[i], name=per_sample_multiconfig.index[i])
-                multi_job(
-                    multi_config=outdir.joinpath(
+                arc_job(
+                    arc_config=outdir.joinpath(
                         per_sample_multiconfig.index[i]
                     ).with_suffix(".csv"),
                     job_name=per_sample_multiconfig.index[i],
                     **parse_args(ctx.args),
                 )
     else:
-        multiconfig_str: str = create_multi_sheet(
+        arcconfig_str: str = create_arc_sheet(
             df=ss,
             project_path=project_path,
             data_subfolder=data_subfolder,  # I think we need to check if this exists and adjust accordingly?
-            gex_ref_path=gene_expression_reference,
-            vdj_ref_path=vdj_reference,
-            feature_ref_path=feature_reference,
+            ref_path=reference,
             expected_cells=expected_number_of_cells,
             subsample_rate=subsample_rate,
         )
         proj_name = ss["Sample_Project"][0]
         log.info("writing job file", outdir=str(outdir))
         with outdir.joinpath(proj_name).with_suffix(".csv").open("w") as of:
-            of.writelines(multiconfig_str)
-
+            of.writelines(arcconfig_str)
 
 @app.callback(invoke_without_command=True)
 @app.command(
-    name="multi_job",
+    name="arc_job",
     no_args_is_help=True,
     context_settings={"allow_extra_args": True, "ignore_unknown_options": True},
 )
-def multi_job(
-    multi_config: Path = typer.Argument(
-        ...,
-        help="Path to the multi config csv file",
-    ),
-    sample_name: Optional[str] = typer.Option(
-        "other_name",
-        "--id",
-        "-i",
-        help=(
-            "Label to give sample and will be used by Cell Ranger to name the output directory. "
-            "If not provided, the name will be extracted from the multi config csv."
-        ),
-    ),
-    job_manager: JobManager = typer.Option(
-        JobManager.SLURM,
-        "--manager",
-        "-j",
-        help="Target job manager to write a submission script for",
-    ),
-    job_out: Optional[Path] = typer.Option(
-        None,
-        "--job_out",
-        "-f",
-        help="Path to which job files should be saved",
-    ),
-    job_name: Optional[str] = typer.Option(
-        None,
-        "--job_name",
-        "-n",
-        help="Name to give job (only used to identify job in the job manager)",
-    ),
-    log_file: Optional[str] = typer.Option(
-        None,
-        "--log",
-        "-l",
-        help="Name to give log file. If not provided, the sample name read from the config csv.",
-    ),
-    memory: int = typer.Option(
-        32, "--mem", "-m", help="Amount of memory to request for the job (in GB)"
-    ),
-    cpus: int = typer.Option(
-        8, "--cpus", "-c", help="Number of CPUs to request for the job"
-    ),
-    status: List[StatusMessage] = typer.Option(
-        [StatusMessage.END, StatusMessage.FAIL],
-        "--status",
-        "-s",
-        help="Type of status updates to email. Pass the argument multiple times to signal for multiple statuses.",
-    ),
-    email: Optional[str] = typer.Option(
-        None,
-        "--email",
-        "-e",
-        help="Email address to which to send status updates",
-    ),
-    partition: Optional[Partition] = typer.Option(
-        Partition.SERIAL,
-        "--partition",
-        "-p",
-        help="Specify the cluster partition on which to run the job",
-    ),
-    # Can we just change to using shutil.which() to find this?
-    cellranger_path: Optional[Path] = typer.Option(
-        None,
-        "--cellranger_path",
-        "-cp",
-        help="Path to the cellranger folder.",
-    ),
-) -> None:
-    """Quickly create a job file to perform counting with 10X's Cellranger"""
-    # TODO: maybe just move a lot of this to a snakemake pipeline?
-    cellranger_path = resolve(cellranger_path)
-    if cellranger_path is None:
-        cellranger_path = which("cellranger")
-        if cellranger_path is None:
-            raise FileNotFoundError(
-                "No path to the cellranger executable was provided and it does not appear to be on the PATH."
-            )
-
-    cellranger_path = Path(cellranger_path)
-
-    if cellranger_path.is_dir():
-        cellranger_path = cellranger_path.joinpath("cellranger")
-
-    kwargs = {
-        k: v.default if isinstance(v, typer.models.OptionInfo) else v
-        for (k, v) in locals().items()
-    }
-    kwargs["multi_config"] = multi_config
-    kwargs["cellranger_path"] = cellranger_path
-    kwargs["sample_name"] = job_name
-    return _multi_job(**kwargs)
-
-
-def _multi_job(
-    # multi_config: Path,
-    # sample_name: Optional[str] = None,
-    # job_manager: Optional[JobManager] = JobManager.SLURM,
-    # job_out: Optional[Path] = None,
-    # job_name: Optional[str] = None,
-    # log_file: Optional[str] = None,
-    # memory: int = 32,
-    # cpus: int = 8,
-    # status: List[StatusMessage] = [StatusMessage.END, StatusMessage.FAIL],
-    # email: Optional[str] = None,
-    # partition: Optional[Partition] = Partition.SERIAL,
-    # # Can we just change to using shutil.which() to find this?
-    # cellranger_path: Optional[str] = None,
-    **kwargs,
-):
-    """Hack so that we can use the `multi_job()` function as both a typer cli function
-    and a callable function
-    """
-    if "sample_name" not in kwargs or kwargs["sample_name"] is None:
-        kwargs["sample_name"] = kwargs["multi_config"].stem
-
-    multi_cmd = (
-        f"{kwargs['cellranger_path']} multi \\\n"
-        f"\t--id {kwargs['sample_name']} \\\n"
-        f"\t--csv {kwargs['multi_config'].resolve()} \\\n"
-        f"\t--jobinterval 2000 \\\n"
-        f"\t--localcores {kwargs['cpus']} \\\n"
-        f"\t--localmem {kwargs['memory']}"
-    )
-
-    if "job_name" not in kwargs or kwargs["job_name"] is None:
-        kwargs["job_name"] = kwargs["multi_config"].stem
-
-    if "log_file" not in kwargs or kwargs["log_file"] is None:
-        kwargs["log_file"] = f"{kwargs['multi_config'].stem}.job"
-
-    kwargs["status"] = ",".join([_.value for _ in kwargs["status"]])
-
-    # Using a dictionary to store/pass values here to make
-    # swapping out the job manager and associated functions easier
-    # if other job managers are ever added
-
-    header_options = {
-        "job_name": kwargs["job_name"],
-        "log_file": kwargs["log_file"],
-        "email_address": kwargs["email"],
-        "email_status": kwargs["status"],
-        "mem": kwargs["memory"],
-        "cpus": kwargs["cpus"],
-        "partition": kwargs["partition"],
-    }
-
-    if kwargs["job_manager"] == JobManager.SLURM:
-        job_header = create_slurm_header(header_options)
-    else:
-        job_header = ""
-    # TODO: put more manager profiles here.  maybe up the required python version so
-    # we can use the structural pattern matching instead of an elif tree
-
-    job_script = job_header + "\n" + multi_cmd
-
-    if "job_out" not in kwargs or kwargs["job_out"] is None:
-        job_out = kwargs["multi_config"].stem
-    else:
-        job_out = kwargs["job_out"]
-
-    output_jobscript = Path(f"{job_out}_multi.job")
-    console.print(f"Writing jobscript to {output_jobscript.resolve()}")
-
-    with output_jobscript.open("w") as f:
-        f.writelines(job_script)
+def arc_job():
+    pass
